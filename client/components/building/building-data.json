@@ -1,0 +1,11 @@
+[
+  {"name": "Farm",
+   "effects": [
+     {"actionName": "grow", "targetAttribute": "food", "value": 20},
+     {"actionName": "use", "targetAttribute": "resources.tools", "value": -2}
+   ],
+   "requirements": [
+     {"targetType": "Player", "targetAttribute": "level", "value": 1},
+     {"targetType": "Port", "targetAttribute": "population", "value": 5}
+   ]}
+]

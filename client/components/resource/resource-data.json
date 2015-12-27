@@ -1,0 +1,5 @@
+[
+  {"name": "Food", "basePrice": 20},
+  {"name": "Tools", "basePrice": 40},
+  {"name": "Luxury", "basePrice": 80},
+]
