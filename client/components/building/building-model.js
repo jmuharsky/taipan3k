@@ -1,5 +1,6 @@
 goog.provide('taipan3k.components.building.BuildingModel');
 goog.require('taipan3k.components.effect.EffectModel');
+goog.require('taipan3k.components.requirement.RequirementModel');
 
 
 goog.scope(function() {

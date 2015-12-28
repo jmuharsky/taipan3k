@@ -2,10 +2,11 @@ module.exports = function(config) {
   config.set({
     basePath: '',
     browsers: ['Chrome'],
-    frameworks: ['jasmine', 'closure'],
+    frameworks: ['jasmine', 'jasmine-matchers', 'closure'],
     reporters: ['nested', 'html'],
     files: [
       'bower_components/angular/angular.js',
+      'bower_components/angular-mocks/angular-mocks.js',
       // Compiled Product Code
       'build/client/taipan3k_scripts.js',
       {pattern: 'client/**/*_test.js'},

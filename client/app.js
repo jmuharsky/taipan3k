@@ -1,15 +1,17 @@
 goog.provide('taipan3k.application.module');
-goog.require('taipan3k.components.world.WorldModel');
+goog.require('taipan3k.components.content.ContentService');
+goog.require('taipan3k.components.game.GameStateService');
 
 goog.scope(function() {
-  const BuildingModel = taipan3k.components.building.BuildingModel;
-  const WorldModel = taipan3k.components.world.WorldModel;
+  const ContentService = taipan3k.components.content.ContentService;
+  const GameStateService = taipan3k.components.game.GameStateService;
 
   taipan3k.application.module = angular.module('taipan3k', []);
   const app = taipan3k.application.module;
 
+  app.service('contentService', ContentService);
+  app.service('gameStateService', GameStateService);
+  
   app.config(function() {
-    let world = new WorldModel();
-    world.name = 'Bar';
   });
 });

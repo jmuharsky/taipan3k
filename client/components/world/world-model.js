@@ -1,5 +1,5 @@
 goog.provide('taipan3k.components.world.WorldModel');
-goog.require('taipan3k.components.building.BuildingModel');
+goog.require('taipan3k.components.event.EventInstanceModel');
 goog.require('taipan3k.components.port.PortModel');
 goog.require('taipan3k.components.resource.ResourceModel');
 
@@ -32,7 +32,7 @@ goog.scope(function() {
   }
   const WorldModel = taipan3k.components.world.WorldModel;
 
-  WorldModel.DEFAULT_TURN = 0;
+  WorldModel.DEFAULT_TURN = 1;
   WorldModel.DEFAULT_RESOURCES = {};
   WorldModel.DEFAULT_PORTS = {};
   WorldModel.DEFAULT_EVENTS = [];
