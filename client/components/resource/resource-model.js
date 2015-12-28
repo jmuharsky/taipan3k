@@ -3,11 +3,11 @@ goog.provide('taipan3k.components.resource.ResourceModel');
 
 goog.scope(function() {
   taipan3k.components.resource.ResourceModel = class {
-    constructor() {
+    constructor(name, basePrice) {
       const ResourceModel = taipan3k.components.resource.ResourceModel;
 
-      this.name = ResourceModel.DEFAULT_NAME;
-      this.basePrice = ResourceModel.DEFAULT_BASE_PRICE;
+      this.name = name || ResourceModel.DEFAULT_NAME;
+      this.basePrice = basePrice || ResourceModel.DEFAULT_BASE_PRICE;
     }
   }
   const ResourceModel = taipan3k.components.resource.ResourceModel;
