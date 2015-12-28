@@ -30,6 +30,18 @@ goog.scope(function() {
        */
       this.events = [];
     }
+    
+    static DEFAULT_RESOURCES() {
+      return {};
+    }
+    
+    static DEFAULT_BUILDINGS() {
+      return [];
+    }
+    
+    static DEFAULT_EVENTS() {
+      return [];
+    }
   }
   const PortModel = taipan3k.components.port.PortModel;
 

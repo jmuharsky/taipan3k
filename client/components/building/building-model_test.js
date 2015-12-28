@@ -19,11 +19,11 @@ goog.scope(function() {
         });
         
         it('requirements', function() {
-          expect(actual.requirements).toEqual(BuildingModel.DEFAULT_REQUIREMENTS);
+          expect(actual.requirements).toEqual(BuildingModel.DEFAULT_REQUIREMENTS());
         });
         
         it('effects', function() {
-          expect(actual.effects).toEqual(BuildingModel.DEFAULT_EFFECTS);
+          expect(actual.effects).toEqual(BuildingModel.DEFAULT_EFFECTS());
         });
       });
       

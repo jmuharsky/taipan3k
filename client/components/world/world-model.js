@@ -15,25 +15,34 @@ goog.scope(function() {
        * Lists the available resources and their global base price.
        * @export {{ResourceModel}}
        */
-      this.resources = {}
+      this.resources = WorldModel.DEFAULT_RESOURCES();
       
       /**
        * An indexed list of the ports in the world.
-       * @export {{Array.<PortModel>}}
+       * @export {{PortModel}}
        */
-      this.ports = {};
+      this.ports = WorldModel.DEFAULT_PORTS();
       
       /**
        * Lists the events affecting the world.
        * @export {Array.<EventModel>}
        */
-      this.events = [];
+      this.events = WorldModel.DEFAULT_EVENTS();
+    }
+    
+    static DEFAULT_RESOURCES() {
+      return {};
+    }
+    
+    static DEFAULT_PORTS() {
+      return {};
+    }
+    
+    static DEFAULT_EVENTS() {
+      return [];
     }
   }
   const WorldModel = taipan3k.components.world.WorldModel;
 
   WorldModel.DEFAULT_TURN = 1;
-  WorldModel.DEFAULT_RESOURCES = {};
-  WorldModel.DEFAULT_PORTS = {};
-  WorldModel.DEFAULT_EVENTS = [];
 });

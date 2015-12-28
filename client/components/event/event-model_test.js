@@ -6,11 +6,12 @@ goog.require('taipan3k.components.event.EventModel');
 goog.scope(function() {
   const EffectModel = taipan3k.components.effect.EffectModel;
   const EventModel = taipan3k.components.event.EventModel;
+  let actual;
 
   describe('EventModel', function() {
     describe('.constructor', function() {
       describe('should initialize the default', function() {
-        let actual = new EventModel();
+        actual = new EventModel();
         
         it('name', function() {
           expect(actual.name).toEqual(EventModel.DEFAULT_NAME);
@@ -21,7 +22,7 @@ goog.scope(function() {
         });
         
         it('effects', function() {
-          expect(actual.effects).toEqual(EventModel.DEFAULT_EFFECTS);
+          expect(actual.effects).toEqual(EventModel.DEFAULT_EFFECTS());
         });
       });
       
@@ -51,18 +52,18 @@ goog.scope(function() {
         const PROVIDED_NAME = 'target type';
         const PROVIDED_BASE_DURATION = 'target attribute';
         const PROVIDED_EFFECTS = [
-          {targetType: 'effect target type', targetAttribute: 'effect target attr',
-           actionName: 'effect action', value: 42}]
+          {targetType: 'effect type 1', targetAttribute: 'effect attr 1',
+           actionName: 'effect action 1', value: 42}];
         const PROVIDED = {
           name: PROVIDED_NAME,
           baseDuration: PROVIDED_BASE_DURATION,
           effects: PROVIDED_EFFECTS};
         
         const EXPECTED_EFFECTS = [
-          new EffectModel('effect target type', 'effect target attr', 'effect action', 42)
+          new EffectModel('effect type 1', 'effect attr 1', 'effect action 1', 42)
         ];
 
-        let actual = EventModel.fromJSON(PROVIDED);
+        actual = EventModel.fromJSON(PROVIDED);
         
         expect(actual).toEqual(new EventModel(
             PROVIDED_NAME, PROVIDED_BASE_DURATION, EXPECTED_EFFECTS));

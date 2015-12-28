@@ -13,15 +13,15 @@ describe('WorldModel', function() {
     });
     
     it('resources', function() {
-      expect(actual.resources).toEqual(WorldModel.DEFAULT_RESOURCES);
+      expect(actual.resources).toEqual(WorldModel.DEFAULT_RESOURCES());
     });
     
     it('ports', function() {
-      expect(actual.ports).toEqual(WorldModel.DEFAULT_PORTS);
+      expect(actual.ports).toEqual(WorldModel.DEFAULT_PORTS());
     });
     
     it('events', function() {
-      expect(actual.events).toEqual(WorldModel.DEFAULT_EVENTS);
+      expect(actual.events).toEqual(WorldModel.DEFAULT_EVENTS());
     });
   });
 });

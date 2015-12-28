@@ -12,8 +12,16 @@ goog.scope(function() {
       const BuildingModel = taipan3k.components.building.BuildingModel;
 
       this.name = name || BuildingModel.DEFAULT_NAME;
-      this.requirements = requirements || BuildingModel.DEFAULT_REQUIREMENTS;
-      this.effects = effects || BuildingModel.DEFAULT_EFFECTS;
+      this.requirements = requirements || BuildingModel.DEFAULT_REQUIREMENTS();
+      this.effects = effects || BuildingModel.DEFAULT_EFFECTS();
+    }
+    
+    static DEFAULT_REQUIREMENTS() {
+      return [];
+    }
+    
+    static DEFAULT_EFFECTS() {
+      return [];
     }
   }
   const BuildingModel = taipan3k.components.building.BuildingModel;
@@ -37,6 +45,4 @@ goog.scope(function() {
   }
 
   BuildingModel.DEFAULT_NAME = 'Untitled';
-  BuildingModel.DEFAULT_REQUIREMENTS = [];
-  BuildingModel.DEFAULT_EFFECTS = [];
 });

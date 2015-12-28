@@ -87,6 +87,42 @@ goog.scope(function() {
            {targetAttribute: 'resources.tool', value: -5}
          ]}
       ));
+      
+      this.events.length = 0;
+      this.events.push(EventModel.fromJSON(
+        {name: 'flood',
+         baseDuration: 1,
+         effects: [
+           {targetAttribute: 'population', value: -20, scale: 'relative'},
+           {targetAttribute: 'food', value: 10, scale: 'relative'}
+         ]}
+      ));
+      
+      this.events.push(EventModel.fromJSON(
+        {name: 'famine',
+         baseDuration: 2,
+         effects: [
+           {targetAttribute: 'population', value: -10, scale: 'relative'},
+           {targetAttribute: 'food', value: -20, scale: 'relative'}
+         ]}
+      ));
+      
+      this.events.push(EventModel.fromJSON(
+        {name: 'rennaissance',
+         baseDuration: 8,
+         effects: [
+           {targetAttribute: 'population', value: 2, scale: 'relative'},
+           {targetAttribute: 'food', value: -20, scale: 'relative'}
+         ]}
+      ));
+      
+      this.events.push(EventModel.fromJSON(
+        {name: 'inquisition',
+         baseDuration: 8,
+         effects: [
+           {targetAttribute: 'morale', value: -5, scale: 'relative'}
+         ]}
+      ));
     }
   }
   const ContentService = taipan3k.components.content.ContentService;
