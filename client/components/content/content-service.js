@@ -12,19 +12,19 @@ goog.scope(function() {
     constructor() {
       const ContentService = taipan3k.components.content.ContentService;
 
-      this.resources = ContentService.DEFAULT_RESOURCES;
-      this.buildings = ContentService.DEFAULT_BUILDINGS;
-      this.events = ContentService.DEFAULT_EVENTS;
+      this.resources = ContentService.DEFAULT_RESOURCES();
+      this.buildings = ContentService.DEFAULT_BUILDINGS();
+      this.events = ContentService.DEFAULT_EVENTS();
     }
-    
-    initRules() {
-      this.resources.length = 0;
-      this.resources.push(new ResourceModel('food', 20));
-      this.resources.push(new ResourceModel('tool', 40));
-      this.resources.push(new ResourceModel('luxury', 80));
 
-      this.buildings.length = 0;
-      this.buildings.push(BuildingModel.fromJSON(
+    initializeRules() {
+      this.resources = ContentService.DEFAULT_RESOURCES();
+      this.addResource(new ResourceModel('food', 20));
+      this.addResource(new ResourceModel('tool', 40));
+      this.addResource(new ResourceModel('luxury', 80));
+
+      this.buildings = ContentService.DEFAULT_BUILDINGS();
+      this.addBuilding(BuildingModel.fromJSON(
         {name: 'farm',
          requirements: [
            {targetAttribute: 'population', minValue: 5}
@@ -35,7 +35,7 @@ goog.scope(function() {
          ]}
       ));
 
-      this.buildings.push(BuildingModel.fromJSON(
+      this.addBuilding(BuildingModel.fromJSON(
         {name: 'granary',
          requirements: [
            {targetAttribute: 'population', minValue: 8}
@@ -46,7 +46,7 @@ goog.scope(function() {
          ]}
       ));
 
-      this.buildings.push(BuildingModel.fromJSON(
+      this.addBuilding(BuildingModel.fromJSON(
         {name: 'workshop',
          requirements: [
            {targetAttribute: 'population', minValue: 5}
@@ -56,7 +56,7 @@ goog.scope(function() {
          ]}
       ));
 
-      this.buildings.push(BuildingModel.fromJSON(
+      this.addBuilding(BuildingModel.fromJSON(
         {name: 'foundry',
          requirements: [
            {targetAttribute: 'population', minValue: 10}
@@ -66,7 +66,7 @@ goog.scope(function() {
          ]}
       ));
 
-      this.buildings.push(BuildingModel.fromJSON(
+      this.addBuilding(BuildingModel.fromJSON(
         {name: 'temple',
          requirements: [
            {targetAttribute: 'population', minValue: 8}
@@ -77,7 +77,7 @@ goog.scope(function() {
          ]}
       ));
 
-      this.buildings.push(BuildingModel.fromJSON(
+      this.addBuilding(BuildingModel.fromJSON(
         {name: 'cathedral',
          requirements: [
            {targetAttribute: 'population', minValue: 10}
@@ -87,9 +87,9 @@ goog.scope(function() {
            {targetAttribute: 'resources.tool', value: -5}
          ]}
       ));
-      
-      this.events.length = 0;
-      this.events.push(EventModel.fromJSON(
+
+      this.events = ContentService.DEFAULT_EVENTS();
+      this.addEvent(EventModel.fromJSON(
         {name: 'flood',
          baseDuration: 1,
          effects: [
@@ -97,8 +97,8 @@ goog.scope(function() {
            {targetAttribute: 'food', value: 10, scale: 'relative'}
          ]}
       ));
-      
-      this.events.push(EventModel.fromJSON(
+
+      this.addEvent(EventModel.fromJSON(
         {name: 'famine',
          baseDuration: 2,
          effects: [
@@ -106,8 +106,8 @@ goog.scope(function() {
            {targetAttribute: 'food', value: -20, scale: 'relative'}
          ]}
       ));
-      
-      this.events.push(EventModel.fromJSON(
+
+      this.addEvent(EventModel.fromJSON(
         {name: 'rennaissance',
          baseDuration: 8,
          effects: [
@@ -115,8 +115,8 @@ goog.scope(function() {
            {targetAttribute: 'food', value: -20, scale: 'relative'}
          ]}
       ));
-      
-      this.events.push(EventModel.fromJSON(
+
+      this.addEvent(EventModel.fromJSON(
         {name: 'inquisition',
          baseDuration: 8,
          effects: [
@@ -124,10 +124,54 @@ goog.scope(function() {
          ]}
       ));
     }
+
+    addResource(resource) {
+      if (goog.string.isEmptySafe(resource.name)) {
+        throw new Error('addResource failed: resource.name is required');
+      }
+
+      if (goog.isDefAndNotNull(this.resources[resource.name])) {
+        throw new Error('addResource failed: Resource "' + resource.name + '" already exists.');
+      }
+
+      this.resources[resource.name] = resource;
+    }
+
+    addBuilding(building) {
+      if (goog.string.isEmptySafe(building.name)) {
+        throw new Error('addBuilding failed: building.name is required');
+      }
+
+      if (goog.isDefAndNotNull(this.buildings[building.name])) {
+        throw new Error('addBuilding failed: Building "' + building.name + '" already exists.');
+      }
+
+      this.buildings[building.name] = building;
+    }
+
+    addEvent(event) {
+      if (goog.string.isEmptySafe(event.name)) {
+        throw new Error('addEvent failed: event.name is required');
+      }
+
+      if (goog.isDefAndNotNull(this.events[event.name])) {
+        throw new Error('addEvent failed: Event "' + event.name + '" already exists.');
+      }
+
+      this.events[event.name] = event;
+    }
+
+    static DEFAULT_RESOURCES() {
+      return {};
+    }
+
+    static DEFAULT_BUILDINGS() {
+      return {};
+    }
+
+    static DEFAULT_EVENTS() {
+      return {};
+    }
   }
   const ContentService = taipan3k.components.content.ContentService;
-
-  ContentService.DEFAULT_RESOURCES = [];
-  ContentService.DEFAULT_BUILDINGS = [];
-  ContentService.DEFAULT_EVENTS = [];
 });

@@ -9,99 +9,99 @@ goog.scope(function() {
 
   describe('ContentService', function() {
     let svc;
-    
+
     beforeEach(module('taipan3k'));
-    
+
     beforeEach(inject(function(contentService) {
       svc = contentService;
     }));
 
     describe('should initialize the default', function() {
       it('resources', function() {
-        expect(svc.resources).toEqual(ContentService.DEFAULT_RESOURCES);
+        expect(svc.resources).toEqual(ContentService.DEFAULT_RESOURCES());
       });
-      
+
       it('buildings', function() {
-        expect(svc.buildings).toEqual(ContentService.DEFAULT_BUILDINGS);
+        expect(svc.buildings).toEqual(ContentService.DEFAULT_BUILDINGS());
       });
-      
+
       it('events', function() {
-        expect(svc.events).toEqual(ContentService.DEFAULT_EVENTS);
+        expect(svc.events).toEqual(ContentService.DEFAULT_EVENTS());
       });
     });
-    
-    describe('initRules', function() {
+
+    describe('initializeRules', function() {
       beforeEach(function() {
-        svc.initRules();
+        svc.initializeRules();
       });
 
       it('should initialize the default resources', function() {
-        expect(svc.resources.length).toEqual(3);
+        expect(Object.keys(svc.resources).length).toEqual(3);
       });
-      
+
       describe('should initialize a resource for', function() {
         it('food', function() {
-          expect(svc.resources[0]).toEqual(new ResourceModel('food', 20));
+          expect(svc.resources['food']).toEqual(new ResourceModel('food', 20));
         });
-        
+
         it('tool', function() {
-          expect(svc.resources[1]).toEqual(new ResourceModel('tool', 40));
+          expect(svc.resources['tool']).toEqual(new ResourceModel('tool', 40));
         });
-        
+
         it('luxury', function() {
-          expect(svc.resources[2]).toEqual(new ResourceModel('luxury', 80));
+          expect(svc.resources['luxury']).toEqual(new ResourceModel('luxury', 80));
         });
       });
-      
+
       it('should initialize the default buildings', function() {
-        expect(svc.buildings.length).toEqual(6);
+        expect(Object.keys(svc.buildings).length).toEqual(6);
       });
-      
+
       describe('should initialize a building for', function() {
         it('farm', function() {
-          expect(svc.buildings[0].name).toEqual('farm');
+          expect(svc.buildings['farm']).not.toBeNull();
         });
 
         it('granary', function() {
-          expect(svc.buildings[1].name).toEqual('granary');
+          expect(svc.buildings['granary']).not.toBeNull();
         });
 
         it('workshop', function() {
-          expect(svc.buildings[2].name).toEqual('workshop');
+          expect(svc.buildings['workshop']).not.toBeNull();
         });
 
         it('foundry', function() {
-          expect(svc.buildings[3].name).toEqual('foundry');
+          expect(svc.buildings['foundry']).not.toBeNull();
         });
 
         it('temple', function() {
-          expect(svc.buildings[4].name).toEqual('temple');
+          expect(svc.buildings['temple']).not.toBeNull();
         });
 
         it('cathedral', function() {
-          expect(svc.buildings[5].name).toEqual('cathedral');
+          expect(svc.buildings['cathedral']).not.toBeNull();
         });
       });
-      
+
       it('should initialize the default events', function() {
-        expect(svc.events.length).toEqual(4);
+        expect(Object.keys(svc.events).length).toEqual(4);
       });
-      
+
       describe('should initialize an event for', function() {
         it('flood', function() {
-          expect(svc.events[0].name).toEqual('flood');
+          expect(svc.events['flood']).not.toBeNull();
         });
 
         it('famine', function() {
-          expect(svc.events[1].name).toEqual('famine');
+          expect(svc.events['famine']).not.toBeNull();
         });
 
         it('rennaissance', function() {
-          expect(svc.events[2].name).toEqual('rennaissance');
+          expect(svc.events['rennaissance']).not.toBeNull();
         });
 
         it('inquisition', function() {
-          expect(svc.events[3].name).toEqual('inquisition');
+          expect(svc.events['inquisition']).not.toBeNull();
         });
       });
     })

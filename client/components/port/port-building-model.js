@@ -2,11 +2,11 @@ goog.provide('taipan3k.components.port.PortBuildingModel');
 
 
 taipan3k.components.port.PortBuildingModel = class {
-  constructor() {
+  constructor(name, active) {
     const PortBuildingModel = taipan3k.components.port.PortBuildingModel;
-    
-    this.name = PortBuildingModel.DEFAULT_NAME;
-    this.active = PortBuildingModel.DEFAULT_ACTIVE;
+
+    this.name = name || PortBuildingModel.DEFAULT_NAME;
+    this.active = active || PortBuildingModel.DEFAULT_ACTIVE;
   }
 }
 const PortBuildingModel = taipan3k.components.port.PortBuildingModel;

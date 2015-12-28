@@ -9,16 +9,16 @@ goog.scope(function() {
     describe('.constructor', function() {
       describe('should initialize the default', function() {
         let actual = new EventInstanceModel();
-        
+
         it('name', function() {
           expect(actual.name).toEqual(EventInstanceModel.DEFAULT_NAME);
         });
-        
+
         it('duration', function() {
           expect(actual.duration).toEqual(EventInstanceModel.DEFAULT_DURATION);
         });
       });
-      
+
       describe('should support overriding the default value for', function() {
         it('name', function() {
           const PROVIDED = 'provided';
@@ -26,6 +26,9 @@ goog.scope(function() {
           expect(actual.name).toEqual(PROVIDED);
         });
       });
+    });
+
+    describe('.fromJSON', function() {
     });
   });
 });
