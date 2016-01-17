@@ -1,13 +1,25 @@
-goog.provide('taipan3k.components.game.GameStateService');
+goog.require('taipan3k.components.building.BuildingModel');
 goog.require('taipan3k.components.dice.DiceService');
+goog.require('taipan3k.components.entity.EntityTypes');
+goog.provide('taipan3k.components.game.GameStateService');
+goog.require('taipan3k.components.port.PortModel');
+goog.require('taipan3k.components.port.PortBuildingModel');
+goog.require('taipan3k.components.port.PortResourceModel');
 goog.require('taipan3k.components.world.WorldModel');
+goog.require('taipan3k.util.DictUtil');
 
 
 goog.scope(function() {
+  const BuildingModel = taipan3k.components.building.BuildingModel;
+  const EntityTypes = taipan3k.components.entity.EntityTypes;
+  const PortModel = taipan3k.components.port.PortModel;
+  const PortBuildingModel = taipan3k.components.port.PortBuildingModel;
+  const PortResourceModel = taipan3k.components.port.PortResourceModel;
   const WorldModel = taipan3k.components.world.WorldModel;
+  const DictUtil = taipan3k.util.DictUtil;
 
-  /** @ngInject */
   taipan3k.components.game.GameStateService = class {
+    /** @ngInject */
     constructor(contentService) {
       const GameStateService = taipan3k.components.game.GameStateService;
 
@@ -30,11 +42,43 @@ goog.scope(function() {
 
     }
 
+    getEffectTarget(effect, location) {
+      let target;
+
+      switch (effect.targetType) {
+        case EntityTypes.PLAYER:
+          // TODO: Add player entity.
+          break;
+        case EntityTypes.PORT:
+          target = location;
+          break;
+      }
+
+      return target;
+    }
+
+    applyEffect(effect, location) {
+      let target = this.getEffectTarget(effect, location);
+
+      DictUtil.adjustProperty(target, effect.targetAttribute, effect.value);
+    }
+
     calculatePort(port) {
       const FOOD_PER_POP = 0.2;
 
       // Food demand is based on population.
-      port.resources.food.demand = Math.floor(port.population * FOOD_PER_POP);
+      port.resources['food'].demand = Math.floor(port.population * FOOD_PER_POP);
+
+      // Apply building effects.
+      for (let building of port.buildings) {
+        if (!building.active) {
+          continue;
+        }
+
+        for (let effect of building.template.effects) {
+          this.applyEffect(effect, port);
+        }
+      }
     }
 
     processPort(port) {
@@ -67,7 +111,7 @@ goog.scope(function() {
       for (let key of Object.keys(this.world.resources)) {
         let blueprint = this.world.resources[key];
 
-        port.addResource(new PortResourceModel(blueprint.name, blueprint.basePrice));
+        port.addResource(new PortResourceModel(blueprint, blueprint.basePrice));
       }
 
       this.calculatePort(port);
@@ -79,9 +123,11 @@ goog.scope(function() {
 
       if (goog.isString(building)) {
         let blueprint = this.contentService.buildings[building];
-        result = new PortBuildingModel(blueprint.name);
+        result = new PortBuildingModel(blueprint);
+      } else if (Object.is(building, BuildingModel)) {
+        result = new PortBuildingModel(building);
       } else {
-        result = new PortBuildingModel(building.name);
+        throw new Error('Building must be a template name or instance');
       }
 
       port.addBuilding(result);

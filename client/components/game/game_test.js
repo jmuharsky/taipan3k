@@ -34,6 +34,7 @@ goog.scope(function() {
 
       let actualPort = world.ports['San Dominica'];
       actualPort.population = 100;
+      actualPort.morale = 50;
 
       let actualResource = actualPort.resources['food'];
       expect(actualResource.supply).toEqual(0);
@@ -46,7 +47,5 @@ goog.scope(function() {
 
       expect(actualResource.stocks).toEqual(expectedResource);
     });
-
-    it('')
   });
 });

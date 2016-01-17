@@ -21,7 +21,7 @@ goog.scope(function() {
     return new EffectModel(obj.targetType, obj.targetAttribute, obj.actionName, obj.value);
   }
 
-  EffectModel.DEFAULT_TARGET_TYPE = EntityTypes.Player;
+  EffectModel.DEFAULT_TARGET_TYPE = EntityTypes.PLAYER;
   EffectModel.DEFAULT_TARGET_ATTRIBUTE = 'unset';
   EffectModel.DEFAULT_ACTION_NAME = 'UNSET';
   EffectModel.DEFAULT_VALUE = 0;

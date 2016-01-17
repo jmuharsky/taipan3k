@@ -1,10 +1,25 @@
 goog.provide('taipan3k.components.port.PortModel');
+
+goog.require('taipan3k.components.event.EventInstanceModel');
 goog.require('taipan3k.components.port.PortBuildingModel');
-goog.require('taipan3k.components.port.PortResourceModel');
+goog.require('taipan3k.components.port.PortBuildingModel');
 
 
 goog.scope(function() {
+  const EventInstanceModel = taipan3k.components.event.EventInstanceModel;
+  const PortBuildingModel = taipan3k.components.port.PortBuildingModel;
+  const PortResourceModel = taipan3k.components.port.PortResourceModel;
+
   taipan3k.components.port.PortModel = class {
+    /**
+     * Constructs a new Port instance from the provided values.
+     * @param {?string=} name
+     * @param {?number=} population
+     * @param {?number=} morale
+     * @param {?Object.<string, !PortResourceModel>=} resources
+     * @param {?Array.<!PortBuildingModel>=} buildings
+     * @param {?Array.<!EventInstanceModel>=} events
+     */
     constructor(name, population, morale, resources, buildings, events) {
       const PortModel = taipan3k.components.port.PortModel;
 
@@ -14,7 +29,7 @@ goog.scope(function() {
 
       /**
        * A dictionary of resources.
-       * @export {{string, PortResourceModel}}
+       * @export {Object.<string, !PortResourceModel>}
        */
       this.resources = PortModel.DEFAULT_RESOURCES();
 
@@ -32,15 +47,11 @@ goog.scope(function() {
     }
 
     addResource(resource) {
-      if (goog.string.isEmptySafe(resource.name)) {
-        throw new Error('addResource failed: Resource.name is required');
+      if (goog.isDefAndNotNull(this.resources[resource.template.name])) {
+        throw new Error('addResource failed: Resource "' + resource.template.name + '" already exists.');
       }
 
-      if (goog.isDefAndNotNull(this.resources[resource.name])) {
-        throw new Error('addResource failed: Resource "' + resource.name + '" already exists.');
-      }
-
-      this.resources[resource.name] = resource;
+      this.resources[resource.template.name] = resource;
     }
 
     addBuilding(building) {

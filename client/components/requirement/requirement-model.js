@@ -20,7 +20,7 @@ goog.scope(function() {
     return new RequirementModel(obj.targetType, obj.targetAttribute, obj.minValue);
   }
 
-  RequirementModel.DEFAULT_TARGET_TYPE = EntityTypes.PERSON;
+  RequirementModel.DEFAULT_TARGET_TYPE = EntityTypes.PLAYER;
   RequirementModel.DEFAULT_TARGET_ATTRIBUTE = 'unset';
   RequirementModel.DEFAULT_MIN_VALUE = 0;
 });

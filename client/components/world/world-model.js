@@ -2,11 +2,16 @@ goog.provide('taipan3k.components.world.WorldModel');
 
 goog.require('goog.string');
 goog.require('taipan3k.components.event.EventInstanceModel');
+goog.require('taipan3k.components.event.EventModel');
 goog.require('taipan3k.components.port.PortModel');
 goog.require('taipan3k.components.resource.ResourceModel');
 
 
 goog.scope(function() {
+  const EventModel = taipan3k.components.event.EventModel;
+  const PortModel = taipan3k.components.port.PortModel;
+  const ResourceModel = taipan3k.components.resource.ResourceModel;
+
   taipan3k.components.world.WorldModel = class {
     constructor() {
       const WorldModel = taipan3k.components.world.WorldModel;
@@ -27,7 +32,7 @@ goog.scope(function() {
 
       /**
        * Lists the events affecting the world.
-       * @export {Array.<EventModel>}
+       * @export {Array.<!EventModel>}
        */
       this.events = WorldModel.DEFAULT_EVENTS();
     }

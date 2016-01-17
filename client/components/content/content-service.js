@@ -1,10 +1,14 @@
 goog.provide('taipan3k.components.content.ContentService');
 goog.require('taipan3k.components.building.BuildingModel');
+goog.require('taipan3k.components.effect.EffectModel');
+goog.require('taipan3k.components.entity.EntityTypes');
 goog.require('taipan3k.components.event.EventModel');
 goog.require('taipan3k.components.resource.ResourceModel');
 
 goog.scope(function() {
   const BuildingModel = taipan3k.components.building.BuildingModel;
+  const EffectModel = taipan3k.components.effect.EffectModel;
+  const EntityTypes = taipan3k.components.entity.EntityTypes;
   const EventModel = taipan3k.components.event.EventModel;
   const ResourceModel = taipan3k.components.resource.ResourceModel;
 
@@ -19,110 +23,13 @@ goog.scope(function() {
 
     initializeRules() {
       this.resources = ContentService.DEFAULT_RESOURCES();
-      this.addResource(new ResourceModel('food', 20));
-      this.addResource(new ResourceModel('tool', 40));
-      this.addResource(new ResourceModel('luxury', 80));
+      this.addDefaultResources();
 
       this.buildings = ContentService.DEFAULT_BUILDINGS();
-      this.addBuilding(BuildingModel.fromJSON(
-        {name: 'farm',
-         requirements: [
-           {targetAttribute: 'population', minValue: 5}
-         ],
-         effects: [
-           {targetAttribute: 'resources.food', value: 20},
-           {targetAttribute: 'resources.tool', value: -2}
-         ]}
-      ));
-
-      this.addBuilding(BuildingModel.fromJSON(
-        {name: 'granary',
-         requirements: [
-           {targetAttribute: 'population', minValue: 8}
-         ],
-         effects: [
-           {targetAttribute: 'resources.food', value: 40},
-           {targetAttribute: 'resources.tool', value: -5}
-         ]}
-      ));
-
-      this.addBuilding(BuildingModel.fromJSON(
-        {name: 'workshop',
-         requirements: [
-           {targetAttribute: 'population', minValue: 5}
-         ],
-         effects: [
-           {targetAttribute: 'resources.tool', value: 5}
-         ]}
-      ));
-
-      this.addBuilding(BuildingModel.fromJSON(
-        {name: 'foundry',
-         requirements: [
-           {targetAttribute: 'population', minValue: 10}
-         ],
-         effects: [
-           {targetAttribute: 'resources.tool', value: 10}
-         ]}
-      ));
-
-      this.addBuilding(BuildingModel.fromJSON(
-        {name: 'temple',
-         requirements: [
-           {targetAttribute: 'population', minValue: 8}
-         ],
-         effects: [
-           {targetAttribute: 'resources.luxury', value: 4},
-           {targetAttribute: 'resources.tool', value: -2}
-         ]}
-      ));
-
-      this.addBuilding(BuildingModel.fromJSON(
-        {name: 'cathedral',
-         requirements: [
-           {targetAttribute: 'population', minValue: 10}
-         ],
-         effects: [
-           {targetAttribute: 'resources.luxury', value: 6},
-           {targetAttribute: 'resources.tool', value: -5}
-         ]}
-      ));
+      this.addDefaultBuildings();
 
       this.events = ContentService.DEFAULT_EVENTS();
-      this.addEvent(EventModel.fromJSON(
-        {name: 'flood',
-         baseDuration: 1,
-         effects: [
-           {targetAttribute: 'population', value: -20, scale: 'relative'},
-           {targetAttribute: 'food', value: 10, scale: 'relative'}
-         ]}
-      ));
-
-      this.addEvent(EventModel.fromJSON(
-        {name: 'famine',
-         baseDuration: 2,
-         effects: [
-           {targetAttribute: 'population', value: -10, scale: 'relative'},
-           {targetAttribute: 'food', value: -20, scale: 'relative'}
-         ]}
-      ));
-
-      this.addEvent(EventModel.fromJSON(
-        {name: 'rennaissance',
-         baseDuration: 8,
-         effects: [
-           {targetAttribute: 'population', value: 2, scale: 'relative'},
-           {targetAttribute: 'food', value: -20, scale: 'relative'}
-         ]}
-      ));
-
-      this.addEvent(EventModel.fromJSON(
-        {name: 'inquisition',
-         baseDuration: 8,
-         effects: [
-           {targetAttribute: 'morale', value: -5, scale: 'relative'}
-         ]}
-      ));
+      this.addDefaultEvents();
     }
 
     addResource(resource) {
@@ -159,6 +66,118 @@ goog.scope(function() {
       }
 
       this.events[event.name] = event;
+    }
+
+    // TODO(joemu): Load from JSON file.
+    addDefaultResources() {
+      this.addResource(new ResourceModel('food', 20));
+      this.addResource(new ResourceModel('tool', 40));
+      this.addResource(new ResourceModel('luxury', 80));
+    }
+
+    // TODO(joemu): Load from JSON file.
+    addDefaultBuildings() {
+      this.addBuilding(BuildingModel.fromJSON(
+        {name: 'farm',
+         requirements: [
+           {targetAttribute: 'population', minValue: 5}
+         ],
+         effects: [
+           {targetType: EntityTypes.PORT, actionName: 'grow', targetAttribute: 'resources.food.stock', value: 20},
+           {targetType: EntityTypes.PORT, actionName: 'use', targetAttribute: 'resources.tool.stock', value: -2}
+         ]}
+      ));
+
+      this.addBuilding(BuildingModel.fromJSON(
+        {name: 'granary',
+         requirements: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', minValue: 8}
+         ],
+         effects: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.food.stock', value: 40},
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: -5}
+         ]}
+      ));
+
+      this.addBuilding(BuildingModel.fromJSON(
+        {name: 'workshop',
+         requirements: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', minValue: 5}
+         ],
+         effects: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: 5}
+         ]}
+      ));
+
+      this.addBuilding(BuildingModel.fromJSON(
+        {name: 'foundry',
+         requirements: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', minValue: 10}
+         ],
+         effects: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: 10}
+         ]}
+      ));
+
+      this.addBuilding(BuildingModel.fromJSON(
+        {name: 'temple',
+         requirements: [
+           {targetAttribute: 'population', minValue: 8}
+         ],
+         effects: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.luxury.stock', value: 4},
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: -2}
+         ]}
+      ));
+
+      this.addBuilding(BuildingModel.fromJSON(
+        {name: 'cathedral',
+         requirements: [
+           {targetAttribute: 'population', minValue: 10}
+         ],
+         effects: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.luxury.stock', value: 6},
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: -5}
+         ]}
+      ));
+    }
+
+    // TODO(joemu): Load from JSON file.
+    addDefaultEvents() {
+      this.addEvent(EventModel.fromJSON(
+        {name: 'flood',
+         baseDuration: 1,
+         effects: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: -20, scale: 'relative'},
+           {targetType: EntityTypes.PORT, targetAttribute: 'food', value: 10, scale: 'relative'}
+         ]}
+      ));
+
+      this.addEvent(EventModel.fromJSON(
+        {name: 'famine',
+         baseDuration: 2,
+         effects: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: -10, scale: 'relative'},
+           {targetType: EntityTypes.PORT, targetAttribute: 'food', value: -20, scale: 'relative'}
+         ]}
+      ));
+
+      this.addEvent(EventModel.fromJSON(
+        {name: 'rennaissance',
+         baseDuration: 8,
+         effects: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: 2, scale: 'relative'},
+           {targetType: EntityTypes.PORT, targetAttribute: 'food', value: -20, scale: 'relative'}
+         ]}
+      ));
+
+      this.addEvent(EventModel.fromJSON(
+        {name: 'inquisition',
+         baseDuration: 8,
+         effects: [
+           {targetType: EntityTypes.PORT, targetAttribute: 'morale', value: -5, scale: 'relative'}
+         ]}
+      ));
     }
 
     static DEFAULT_RESOURCES() {

@@ -1,11 +1,13 @@
 "use strict"
 goog.require('taipan3k.components.content.ContentService');
 goog.require('taipan3k.components.game.GameStateService');
+goog.require('taipan3k.components.port.PortBuildingModel');
 
 
 goog.scope(function() {
   const ContentService = taipan3k.components.content.ContentService;
   const GameStateService = taipan3k.components.game.GameStateService;
+  const PortBuildingModel = taipan3k.components.port.PortBuildingModel;
 
   describe('GameStateService', function() {
     let gameStateService, contentService;
@@ -64,7 +66,17 @@ goog.scope(function() {
         let actualBuilding = actualPort.buildings[0];
 
         expect(actualBuilding).not.toBeNull();
-        expect(actualBuilding).toEqual(new PortBuildingModel(expectedBuildingName));
+        expect(actualBuilding).toEqual(new PortBuildingModel(blueprintBuilding));
+      });
+
+      it('should activate the building when added', function() {
+        let providedBuildingName = 'granary';
+        let blueprintBuilding = contentService.buildings[providedBuildingName];
+
+        gameStateService.addBuilding(actualPort, providedBuildingName);
+        let actualBuilding = actualPort.buildings[0];
+
+        expect(actualBuilding.active).toEqual(true);
       });
     });
 
@@ -85,8 +97,18 @@ goog.scope(function() {
           expect(actualPort.resources.food.demand).toEqual(20);
         });
 
-        it('food supply based on buildings', function() {
-        })
+        describe('food supply based on buildings', function() {
+          it('with no buildings', function() {
+            gameStateService.calculatePort(actualPort);
+            expect(actualPort.resources.food.supply).toEqual(0);
+          });
+
+          it('with one food-producing building', function() {
+            gameStateService.addBuilding(actualPort, 'farm');
+            gameStateService.calculatePort(actualPort);
+            expect(actualPort.resources.food.stock).toEqual(20);
+          });
+        });
       });
     });
   });

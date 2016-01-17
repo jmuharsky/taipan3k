@@ -12,20 +12,20 @@ goog.scope(function() {
     describe('.constructor', function() {
       describe('should initialize the default', function() {
         actual = new EventModel();
-        
+
         it('name', function() {
           expect(actual.name).toEqual(EventModel.DEFAULT_NAME);
         });
-        
+
         it('baseDuration', function() {
           expect(actual.baseDuration).toEqual(EventModel.DEFAULT_BASE_DURATION);
         });
-        
+
         it('effects', function() {
           expect(actual.effects).toEqual(EventModel.DEFAULT_EFFECTS());
         });
       });
-      
+
       describe('should allow overriding the default value for', function() {
         it('name', function() {
           const PROVIDED = 'provided';
@@ -46,7 +46,7 @@ goog.scope(function() {
         });
       });
     });
-    
+
     describe('.fromJSON', function() {
       it('should return a new instance populated from the provided object', function() {
         const PROVIDED_NAME = 'target type';
@@ -58,13 +58,13 @@ goog.scope(function() {
           name: PROVIDED_NAME,
           baseDuration: PROVIDED_BASE_DURATION,
           effects: PROVIDED_EFFECTS};
-        
+
         const EXPECTED_EFFECTS = [
           new EffectModel('effect type 1', 'effect attr 1', 'effect action 1', 42)
         ];
 
         actual = EventModel.fromJSON(PROVIDED);
-        
+
         expect(actual).toEqual(new EventModel(
             PROVIDED_NAME, PROVIDED_BASE_DURATION, EXPECTED_EFFECTS));
       });

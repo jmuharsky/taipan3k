@@ -44,6 +44,7 @@ gulp.task('test', ['common'], function() {
         language_in: 'ECMASCRIPT6',
         language_out: 'ECMASCRIPT5',
         formatting: 'PRETTY_PRINT',
+        warning_level: 'VERBOSE',
         manage_closure_dependencies: true,
         only_closure_dependencies: true,
         process_closure_primitives: true,
@@ -70,9 +71,15 @@ gulp.task('prod', ['common'], function() {
       compilerFlags: {
         angular_pass: true,
         compilation_level: 'SIMPLE_OPTIMIZATIONS',
-        formatting: 'PRETTY_PRINT',
         language_in: 'ECMASCRIPT6',
         language_out: 'ECMASCRIPT5_STRICT',
+        formatting: 'PRETTY_PRINT',
+        warning_level: 'VERBOSE',
+        externs: [
+          'node_modules/google-closure-compiler/contrib/externs/angular-1.4.js',
+          'node_modules/google-closure-compiler/contrib/externs/angular-1.4-http-promise_templated.js',
+          'node_modules/google-closure-compiler/contrib/externs/angular-1.4-q_templated.js'
+        ],
         manage_closure_dependencies: true,
         only_closure_dependencies: true,
         process_closure_primitives: true,
