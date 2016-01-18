@@ -41,15 +41,15 @@ goog.scope(function() {
 
       describe('should initialize a resource for', function() {
         it('food', function() {
-          expect(svc.resources['food']).toEqual(new ResourceModel('food', 20));
+          expect(svc.resources['food']).toEqual(new ResourceModel('food', 20, 'cutlery'));
         });
 
         it('tool', function() {
-          expect(svc.resources['tool']).toEqual(new ResourceModel('tool', 40));
+          expect(svc.resources['tool']).toEqual(new ResourceModel('tool', 40, 'wrench'));
         });
 
         it('luxury', function() {
-          expect(svc.resources['luxury']).toEqual(new ResourceModel('luxury', 80));
+          expect(svc.resources['luxury']).toEqual(new ResourceModel('luxury', 80, 'diamond'));
         });
       });
 

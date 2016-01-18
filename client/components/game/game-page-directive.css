@@ -43,6 +43,10 @@ div:focus, input:focus, textarea:focus {
   padding: 8px;
 }
 
+.tp3k-page-header-section.port-name {
+  width: 150px;
+}
+
 .tp3k-page-sidebar-body {
   overflow-y: scroll;
 }
@@ -59,7 +63,7 @@ div:focus, input:focus, textarea:focus {
   font-size: .8em;
 }
 
-.tp3k-page-header-section.port-name {
-  width: 150px;
+.tp3k-table-cell-icon {
+  width: 20px;
+  text-align: center;
 }
-

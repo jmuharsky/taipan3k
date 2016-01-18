@@ -70,9 +70,9 @@ goog.scope(function() {
 
     // TODO(joemu): Load from JSON file.
     addDefaultResources() {
-      this.addResource(new ResourceModel('food', 20));
-      this.addResource(new ResourceModel('tool', 40));
-      this.addResource(new ResourceModel('luxury', 80));
+      this.addResource(new ResourceModel('food', 20, 'cutlery'));
+      this.addResource(new ResourceModel('tool', 40, 'wrench'));
+      this.addResource(new ResourceModel('luxury', 80, 'diamond'));
     }
 
     // TODO(joemu): Load from JSON file.

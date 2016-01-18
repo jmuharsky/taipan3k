@@ -24,13 +24,19 @@
     <div flex>
       <table class="tp3k-port-directive-table">
         <tr>
+          <th class="tp3k-table-cell-icon">&nbsp;</th>
           <th>&nbsp;</th>
           <th class="tp3k-cell-numeric">stock</th>
           <th class="tp3k-cell-numeric">supply</th>
           <th class="tp3k-cell-numeric">demand</th>
         </tr>
         <tr ng-repeat="resource in ngModel.resources">
-          <td>{{ resource.template.name }}</td>
+          <td class="tp3k-table-cell-icon">
+            <i class="fa fa-{{ resource.template.iconClass }}"></i>
+          </td>
+          <td>
+            {{ resource.template.name }}
+          </td>
           <td class="tp3k-cell-numeric">{{ resource.stock }}</td>
           <td class="tp3k-cell-numeric">{{ resource.supply }}</td>
           <td class="tp3k-cell-numeric">{{ resource.demand }}</td>
