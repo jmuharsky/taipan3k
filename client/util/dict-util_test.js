@@ -1,8 +1,10 @@
 "use strict"
+goog.require('taipan3k.util.AdjustmentScales');
 goog.require('taipan3k.util.DictUtil');
 
 
 goog.scope(function() {
+  const AdjustmentScales = taipan3k.util.AdjustmentScales;
   const DictUtil = taipan3k.util.DictUtil;
 
   describe('DictUtil.resolveProperty', function() {
@@ -39,6 +41,44 @@ goog.scope(function() {
       let actualValue = providedObject['PARENT']['PROVIDED'];
 
       expect(actualValue).toEqual(expectedValue);
+    });
+  });
+
+  describe('DictUtil.getScaledValue', function() {
+    it('should support modifying a value by a fixed amount', function() {
+      let providedCurrent = 100;
+      let providedValue = 20;
+      let expected = 120;
+
+      let actual = DictUtil.getScaledValue(
+          providedCurrent, providedValue, AdjustmentScales.FIXED);
+    });
+
+    it('should support modifying a value by a negative fixed amount', function() {
+      let providedCurrent = 100;
+      let providedValue = -20;
+      let expected = 80;
+
+      let actual = DictUtil.getScaledValue(
+          providedCurrent, providedValue, AdjustmentScales.FIXED);
+    });
+
+    it('should support modifying a value by a percentage', function() {
+      let providedCurrent = 80;
+      let providedValue = 25;
+      let expected = 100;
+
+      let actual = DictUtil.getScaledValue(
+          providedCurrent, providedValue, AdjustmentScales.PERCENTAGE);
+    });
+
+    it('should support modifying a value by a negative percentage', function() {
+      let providedCurrent = 80;
+      let providedValue = -25;
+      let expected = 60;
+
+      let actual = DictUtil.getScaledValue(
+          providedCurrent, providedValue, AdjustmentScales.PERCENTAGE);
     });
   });
 });

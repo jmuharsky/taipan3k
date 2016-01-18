@@ -65,23 +65,38 @@ goog.scope(function() {
      * @param {string} path The path of a property.  It can be top-level (ie: 'color') or
      *    multi-level (ie: 'color.background').
      * @param {number} value The amount to change the target property by.
-     * @param {?AdjustmentScales=} scale Determines how the value is changed.  Supported values are:
+     * @param {AdjustmentScales=} opt_scale Sets how the value is changed.  Supported values are:
      *    .FIXED:      'fixed'  The value is added to the target property.
      *    .PERCENTAGE: '%'      The target property's value is modified by the value's percentage.
      *                              For example {..., value: -10, scale: '%'} would reduce the
      *                              current property by 10%.
      */
-    static adjustProperty(obj, path, value, scale) {
-      scale = scale || taipan3k.util.DictUtil.DEFAULT_SCALE;
+    static adjustProperty(obj, path, value, opt_scale=AdjustmentScales.FIXED) {
+      const DictUtil = taipan3k.util.DictUtil;
+      let scale = /** @type {!AdjustmentScales} */ (opt_scale);
 
-      taipan3k.util.DictUtil.resolveProperty(obj, path, (context, propertyName) => {
+      DictUtil.resolveProperty(obj, path, (context, propertyName) => {
         let existingValue = context[propertyName];
-        let newValue = existingValue + value;
+        let newValue = DictUtil.getScaledValue(existingValue, value, scale);
         context[propertyName] = newValue;
       });
     }
+
+    /**
+     * Returns a value based on a provided value, adjustment and scale.
+     * @param {number} current
+     * @param {number} value
+     * @param {AdjustmentScales} scale
+     */
+    static getScaledValue(current, value, scale) {
+      switch (scale) {
+        case AdjustmentScales.FIXED:
+          return current + value;
+        case AdjustmentScales.PERCENTAGE:
+          let adjustment = current * scale / 100;
+          return current + adjustment;
+      }
+    }
   }
   const DictUtil = taipan3k.util.DictUtil;
-
-  DictUtil.DEFAULT_SCALE = AdjustmentScales.FIXED;
 });
