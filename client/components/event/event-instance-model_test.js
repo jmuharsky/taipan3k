@@ -38,7 +38,7 @@ goog.scope(function() {
 
       describe('should support overriding the default value for', function() {
         it('name', function() {
-          const providedValue = 'provided';
+          const providedValue = 'overridden';
           let actual = new EventInstanceModel(providedEvent, providedValue);
           expect(actual.name).toEqual(providedValue);
         });

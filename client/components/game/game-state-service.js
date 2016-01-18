@@ -34,13 +34,28 @@ goog.scope(function() {
       for (let key of Object.keys(this.world.ports)) {
         let port = this.world.ports[key];
 
+        this.applyWorldEffects();
         this.calculatePort(port);
         this.processPort(port);
       }
     }
 
     applyWorldEffects() {
-
+      for (let event of this.world.events) {
+        for (let effect of event.template.effects) {
+          switch (effect.targetType) {
+            case EntityTypes.PLAYER:
+              // TODO: Add player entity.
+              break;
+            case EntityTypes.PORT:
+              // Apply port-level world effects to all ports.
+              for (let portName of Object.keys(this.world.ports)) {
+                let port = this.world.ports[portName];
+                DictUtil.adjustProperty(port, effect.targetAttribute, effect.value);
+              }
+          }
+        }
+      }
     }
 
     getEffectTarget(effect, location) {

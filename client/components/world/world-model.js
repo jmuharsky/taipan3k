@@ -8,6 +8,7 @@ goog.require('taipan3k.components.resource.ResourceModel');
 
 
 goog.scope(function() {
+  const EventInstanceModel = taipan3k.components.event.EventInstanceModel;
   const EventModel = taipan3k.components.event.EventModel;
   const PortModel = taipan3k.components.port.PortModel;
   const ResourceModel = taipan3k.components.resource.ResourceModel;
@@ -32,7 +33,7 @@ goog.scope(function() {
 
       /**
        * Lists the events affecting the world.
-       * @export {!Array.<!EventModel>}
+       * @export {!Array.<!EventInstanceModel>}
        */
       this.events = WorldModel.DEFAULT_EVENTS();
 

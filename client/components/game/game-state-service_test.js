@@ -1,13 +1,17 @@
 "use strict"
 goog.require('taipan3k.components.content.ContentService');
+goog.require('taipan3k.components.event.EventInstanceModel');
 goog.require('taipan3k.components.game.GameStateService');
 goog.require('taipan3k.components.port.PortBuildingModel');
+goog.require('taipan3k.util.DictUtil');
 
 
 goog.scope(function() {
   const ContentService = taipan3k.components.content.ContentService;
+  const EventInstanceModel = taipan3k.components.event.EventInstanceModel;
   const GameStateService = taipan3k.components.game.GameStateService;
   const PortBuildingModel = taipan3k.components.port.PortBuildingModel;
+  const DictUtil = taipan3k.util.DictUtil;
 
   describe('GameStateService', function() {
     let gameStateService, contentService;
@@ -77,6 +81,31 @@ goog.scope(function() {
         let actualBuilding = actualPort.buildings[0];
 
         expect(actualBuilding.active).toEqual(true);
+      });
+    });
+
+    describe('.applyWorldEffects', function() {
+      let actualPorts, providedEvent;
+
+      beforeEach(function() {
+        contentService.initializeRules();
+        gameStateService.initializeWorld();
+        providedEvent = new EventInstanceModel(contentService.events['flood']);
+        actualPorts = gameStateService.world.ports;
+      });
+
+      it('should apply effects to each port', function() {
+        spyOn(DictUtil, 'adjustProperty');
+
+        gameStateService.world.addEvent(providedEvent);
+        gameStateService.applyWorldEffects();
+
+        for (let effect of providedEvent.template.effects) {
+          for (let portName of Object.keys(gameStateService.world.ports)) {
+            let port = gameStateService.world.ports[portName];
+            expect(DictUtil.adjustProperty).toHaveBeenCalledWith(port, effect.targetAttribute, effect.value);
+          }
+        }
       });
     });
 
