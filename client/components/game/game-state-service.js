@@ -34,13 +34,13 @@ goog.scope(function() {
       for (let key of Object.keys(this.world.ports)) {
         let port = this.world.ports[key];
 
-        this.applyWorldEffects();
+        this.applyWorldEvents();
         this.calculatePort(port);
         this.processPort(port);
       }
     }
 
-    applyWorldEffects() {
+    applyWorldEvents() {
       for (let event of this.world.events) {
         for (let effect of event.template.effects) {
           switch (effect.targetType) {

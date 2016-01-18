@@ -84,7 +84,7 @@ goog.scope(function() {
       });
     });
 
-    describe('.applyWorldEffects', function() {
+    describe('.applyWorldEvents', function() {
       let actualPorts, providedEvent;
 
       beforeEach(function() {
@@ -98,7 +98,7 @@ goog.scope(function() {
         spyOn(DictUtil, 'adjustProperty');
 
         gameStateService.world.addEvent(providedEvent);
-        gameStateService.applyWorldEffects();
+        gameStateService.applyWorldEvents();
 
         for (let effect of providedEvent.template.effects) {
           for (let portName of Object.keys(gameStateService.world.ports)) {
