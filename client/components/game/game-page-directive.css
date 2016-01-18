@@ -32,9 +32,19 @@ div:focus, input:focus, textarea:focus {
   overflow: hidden;
 }
 
-.tp3k-page-body-sidebar {
+.tp3k-page-sidebar {
   width: 340px;
-  overflow: scroll;
+}
+
+.tp3k-page-sidebar-title {
+  background-color: #333;
+  color: #efefef;
+  font-weight: bold;
+  padding: 8px;
+}
+
+.tp3k-page-sidebar-body {
+  overflow-y: scroll;
 }
 
 .tp3k-page-content {

@@ -12,10 +12,15 @@
     </div>
   </div>
   <div class="tp3k-page-body" flex layout="row">
-    <div class="tp3k-page-body-sidebar">
-      <port ng-model="port" ng-repeat="(name, port) in gameStateSvc.world.ports"></port>
+    <div class="tp3k-page-sidebar" layout="column">
+      <div class="tp3k-page-sidebar-title">
+        PORTS
+      </div>
+      <div class="tp3k-page-sidebar-body" flex>
+        <port ng-model="port" ng-repeat="(name, port) in gameStateSvc.world.ports"></port>
+      </div>
     </div>
-    <div class="tp3k-page-body-content" flex>
+    <div class="tp3k-page-content" flex>
       &nbsp;
     </div>
   </div>
