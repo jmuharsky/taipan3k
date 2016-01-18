@@ -1,18 +1,21 @@
 .tp3k-port-directive-canvas {
-  padding: 8px;
+  border-bottom: 1px solid grey;
   border-radius: 2px;
+  cursor: pointer;
+  padding: 8px;
+  padding-bottom: 0;
 }
 
-.tp3k-port-directive-canvas:not(:last-child) {
-  border-bottom: 1px solid grey;
+.tp3k-port-directive-canvas.selected {
+  background-color: #efefef;
 }
 
 .tp3k-port-directive-section {
   padding-bottom: 8px;
 }
 
-.tp3k-port-directive-section:not(:last-child) {
-  border-bottom: 1px dotted grey;
+.tp3k-port-directive-section:not(:first-child) {
+  border-top: 1px dotted grey;
 }
 
 .tp3k-port-directive-section-header {

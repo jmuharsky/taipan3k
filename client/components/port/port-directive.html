@@ -1,4 +1,6 @@
-<div class="tp3k-port-directive-canvas" layout="column">
+<div class="tp3k-port-directive-canvas" layout="column"
+    ng-click="gameStateSvc.selectPort(ngModel)"
+    ng-class="{'selected': gameStateSvc.state.selectedPort == ngModel}">
   <div class="tp3k-port-directive-header tp3k-port-directive-section" layout="row">
     <div class="tp3k-port-directive-header-text" flex>
       <div class="tp3k-field-value">{{ ngModel.name }}</div>
@@ -13,7 +15,8 @@
       <div class="tp3k-field-label tp3k-cell-numeric">&nbsp;&nbsp;MOR</div>
     </div>
   </div>
-  <div class="tp3k-port-directive-resources tp3k-port-directive-section" layout="column">
+  <div class="tp3k-port-directive-resources tp3k-port-directive-section" layout="column"
+      ng-show="gameStateSvc.state.selectedPort === ngModel">
     <div class="tp3k-port-directive-section-header">
       <div class="tp3k-port-directive-section-title">
         RESOURCES
@@ -36,7 +39,8 @@
       </table>
     </div>
   </div>
-  <div class="tp3k-port-directive-events tp3k-port-directive-section" flex layout="column">
+  <div class="tp3k-port-directive-events tp3k-port-directive-section" flex layout="column"
+      ng-show="gameStateSvc.state.selectedPort === ngModel">
     <div class="tp3k-port-directive-section-header">
       <div class="tp3k-port-directive-section-title">
         EVENTS

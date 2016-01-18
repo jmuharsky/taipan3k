@@ -162,6 +162,10 @@ goog.scope(function() {
       this.world.addPort(port);
     }
 
+    selectPort(port) {
+      this.state.selectedPort = port;
+    }
+
     addBuilding(port, building) {
       let result = null;
 
