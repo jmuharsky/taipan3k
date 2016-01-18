@@ -151,7 +151,16 @@ goog.scope(function() {
     }
 
     setInitialWorldState() {
-      this.addPort('San Dominica');
+      let port;
+
+      port = this.addPort('San Dominica');
+      port.resources['food'].stock = 1200;
+      port.resources['tool'].stock = 20;
+
+      this.addBuilding(port, 'farm');
+      this.addBuilding(port, 'farm');
+      this.addBuilding(port, 'granary');
+
       this.addPort('Kirrel Station');
       this.addPort('Ringworld');
 
@@ -169,6 +178,7 @@ goog.scope(function() {
 
       this.calculatePort(port);
       this.world.addPort(port);
+      return port;
     }
 
     selectPort(port) {
