@@ -1,12 +1,17 @@
 .tp3k-port-directive-canvas {
-  width: 300px;
   padding: 8px;
   border-radius: 2px;
-  border: 1px solid grey;
+}
+
+.tp3k-port-directive-canvas:not(:last-child) {
+  border-bottom: 1px solid grey;
 }
 
 .tp3k-port-directive-section {
   padding-bottom: 8px;
+}
+
+.tp3k-port-directive-section:not(:last-child) {
   border-bottom: 1px dotted grey;
 }
 

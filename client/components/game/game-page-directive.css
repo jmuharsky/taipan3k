@@ -17,5 +17,15 @@ html, body {
 }
 
 .tp3k-page-body {
+  overflow: hidden;
+}
+
+.tp3k-page-body-sidebar {
+  width: 340px;
   overflow: auto;
 }
+
+.tp3k-page-content {
+  overflow: auto;
+}
+
