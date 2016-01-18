@@ -17,7 +17,15 @@ div:focus, input:focus, textarea:focus {
 }
 
 .tp3k-page-header-section {
-  padding: 4px;
+  padding: 8px;
+}
+
+.tp3k-page-header-section:not(:first-child) {
+  padding-left: 12px;
+}
+
+.tp3k-page-header-section:not(:last-child) {
+  padding-right: 12px;
 }
 
 .tp3k-page-body {
@@ -31,5 +39,17 @@ div:focus, input:focus, textarea:focus {
 
 .tp3k-page-content {
   overflow: auto;
+}
+
+.tp3k-cell-numeric {
+  text-align: right;
+}
+
+.tp3k-field-label {
+  font-size: .8em;
+}
+
+.tp3k-page-header-section.port-name {
+  width: 150px;
 }
 

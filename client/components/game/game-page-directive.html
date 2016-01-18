@@ -2,9 +2,13 @@
   <div class="tp3k-page-header" layout="row">
     <div class="tp3k-page-header-section tp3k-page-header-title" flex>
       Taipan 3k - A Trading Simulation</div>
-    <div class="tp3k-page-header-section">
+    <div class="tp3k-page-header-section port-name">
       <div class="tp3k-field-value">{{ gameStateSvc.state.selectedPort.name || 'none' }}</div>
       <div class="tp3k-field-label">ACTIVE PORT</div>
+    </div>
+    <div class="tp3k-page-header-section">
+      <div class="tp3k-field-value tp3k-cell-numeric">{{ gameStateSvc.world.turn }}</div>
+      <div class="tp3k-field-label tp3k-cell-numeric">TURN</div>
     </div>
   </div>
   <div class="tp3k-page-body" flex layout="row">
