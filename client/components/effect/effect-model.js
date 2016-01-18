@@ -1,18 +1,12 @@
 goog.provide('taipan3k.components.effect.EffectModel');
-goog.provide('taipan3k.components.effect.EffectScales');
 
 goog.require('taipan3k.components.entity.EntityTypes');
+goog.require('taipan3k.util.AdjustmentScales');
 
 
 goog.scope(function() {
   const EntityTypes = taipan3k.components.entity.EntityTypes;
-
-  /** @enum {string} */
-  taipan3k.components.effect.EffectScales = {
-    ABSOLUTE: 'Absolute',
-    PERCENTAGE: '%'
-  }
-  const EffectScales = taipan3k.components.effect.EffectScales;
+  const AdjustmentScales = taipan3k.util.AdjustmentScales;
 
   taipan3k.components.effect.EffectModel = class {
     /**
@@ -21,7 +15,7 @@ goog.scope(function() {
      * @param {string} targetAttribute
      * @param {string} actionName
      * @param {number} value
-     * @param {?EffectScales=} scale
+     * @param {?AdjustmentScales=} scale
      */
     constructor(targetType, targetAttribute, actionName, value, scale) {
       const EffectModel = taipan3k.components.effect.EffectModel;
@@ -44,5 +38,5 @@ goog.scope(function() {
   EffectModel.DEFAULT_TARGET_ATTRIBUTE = 'unset';
   EffectModel.DEFAULT_ACTION_NAME = 'UNSET';
   EffectModel.DEFAULT_VALUE = 0;
-  EffectModel.DEFAULT_SCALE = EffectScales.ABSOLUTE;
+  EffectModel.DEFAULT_SCALE = AdjustmentScales.FIXED;
 });
