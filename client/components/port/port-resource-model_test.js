@@ -23,10 +23,6 @@ goog.scope(function() {
           expect(actual.stock).toEqual(PortResourceModel.DEFAULT_STOCK);
         });
 
-        it('supply', function() {
-          expect(actual.supply).toEqual(PortResourceModel.DEFAULT_SUPPLY);
-        });
-
         it('demand', function() {
           expect(actual.demand).toEqual(PortResourceModel.DEFAULT_DEMAND);
         });

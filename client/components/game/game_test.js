@@ -35,17 +35,19 @@ goog.scope(function() {
       let actualPort = world.ports['San Dominica'];
       actualPort.population = 100;
       actualPort.morale = 50;
+      gameStateService.world.resourcesPerCapita['food'] = .2;
 
       let actualResource = actualPort.resources['food'];
-      expect(actualResource.supply).toEqual(0);
-      expect(actualResource.demand).toEqual(20);
 
-      actualResource.stocks = 100;
+      actualResource.stock = 100;
       let expectedResource = 80;
 
       gameStateService.nextTurn();
 
-      expect(actualResource.stocks).toEqual(expectedResource);
+      expect(actualResource.supply).toEqual(0);
+      expect(actualResource.demand).toEqual(20);
+
+      expect(actualResource.stock).toEqual(expectedResource);
     });
   });
 });

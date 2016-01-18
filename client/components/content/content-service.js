@@ -83,8 +83,8 @@ goog.scope(function() {
            {targetAttribute: 'population', minValue: 5}
          ],
          effects: [
-           {targetType: EntityTypes.PORT, actionName: 'grow', targetAttribute: 'resources.food.stock', value: 20},
-           {targetType: EntityTypes.PORT, actionName: 'use', targetAttribute: 'resources.tool.stock', value: -2}
+           {targetType: EntityTypes.PORT, actionName: 'grow', targetAttribute: 'resources.food.supply', value: 20},
+           {targetType: EntityTypes.PORT, actionName: 'use', targetAttribute: 'resources.tool.demand', value: 2}
          ]}
       ));
 
@@ -94,8 +94,8 @@ goog.scope(function() {
            {targetType: EntityTypes.PORT, targetAttribute: 'population', minValue: 8}
          ],
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'resources.food.stock', value: 40},
-           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: -5}
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.food.supply', value: 40},
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.demand', value: 5}
          ]}
       ));
 
@@ -105,7 +105,7 @@ goog.scope(function() {
            {targetType: EntityTypes.PORT, targetAttribute: 'population', minValue: 5}
          ],
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: 5}
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.supply', value: 5}
          ]}
       ));
 
@@ -115,7 +115,7 @@ goog.scope(function() {
            {targetType: EntityTypes.PORT, targetAttribute: 'population', minValue: 10}
          ],
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: 10}
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.supply', value: 10}
          ]}
       ));
 
@@ -125,8 +125,8 @@ goog.scope(function() {
            {targetAttribute: 'population', minValue: 8}
          ],
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'resources.luxury.stock', value: 4},
-           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: -2}
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.luxury.supply', value: 4},
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.demand', value: 2}
          ]}
       ));
 
@@ -136,8 +136,8 @@ goog.scope(function() {
            {targetAttribute: 'population', minValue: 10}
          ],
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'resources.luxury.stock', value: 6},
-           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.stock', value: -5}
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.luxury.supply', value: 6},
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.tool.demand', value: 5}
          ]}
       ));
     }
@@ -148,8 +148,8 @@ goog.scope(function() {
         {name: 'flood',
          baseDuration: 1,
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: -20, scale: 'relative'},
-           {targetType: EntityTypes.PORT, targetAttribute: 'food', value: 10, scale: 'relative'}
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: -20, scale: '%'},
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.food.supply', value: 10, scale: '%'}
          ]}
       ));
 
@@ -157,8 +157,8 @@ goog.scope(function() {
         {name: 'famine',
          baseDuration: 2,
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: -10, scale: 'relative'},
-           {targetType: EntityTypes.PORT, targetAttribute: 'food', value: -20, scale: 'relative'}
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: -10, scale: '%'},
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.food.supply', value: -20, scale: '%'}
          ]}
       ));
 
@@ -166,8 +166,9 @@ goog.scope(function() {
         {name: 'rennaissance',
          baseDuration: 8,
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: 2, scale: 'relative'},
-           {targetType: EntityTypes.PORT, targetAttribute: 'food', value: -20, scale: 'relative'}
+           {targetType: EntityTypes.PORT, targetAttribute: 'morale', value: 10},
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: 2, scale: '%'},
+           {targetType: EntityTypes.PORT, targetAttribute: 'food', value: -10, scale: '%'}
          ]}
       ));
 
@@ -175,7 +176,7 @@ goog.scope(function() {
         {name: 'inquisition',
          baseDuration: 8,
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'morale', value: -5, scale: 'relative'}
+           {targetType: EntityTypes.PORT, targetAttribute: 'morale', value: -50, scale: '%'}
          ]}
       ));
     }

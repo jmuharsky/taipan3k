@@ -20,21 +20,27 @@ goog.scope(function() {
 
       /**
        * Lists the available resources and their global base price.
-       * @export {{ResourceModel}}
+       * @export {!Object.<string, !ResourceModel>}
        */
       this.resources = WorldModel.DEFAULT_RESOURCES();
 
       /**
        * An indexed list of the ports in the world.
-       * @export {{PortModel}}
+       * @export {!Object.<string, !PortModel>}
        */
       this.ports = WorldModel.DEFAULT_PORTS();
 
       /**
        * Lists the events affecting the world.
-       * @export {Array.<!EventModel>}
+       * @export {!Array.<!EventModel>}
        */
       this.events = WorldModel.DEFAULT_EVENTS();
+
+      /**
+       * The amount of food consumed per capita, per turn.
+       * @export {!Object.<string, number>}
+       */
+      this.resourcesPerCapita = WorldModel.DEFAULT_RESOURCES_PER_CAPITA();
     }
 
     reset() {
@@ -42,6 +48,7 @@ goog.scope(function() {
 
       this.turn = WorldModel.DEFAULT_TURN;
       this.resources = WorldModel.DEFAULT_RESOURCES();
+      this.resourcesPerCapita = WorldModel.DEFAULT_RESOURCES_PER_CAPITA();
       this.ports = WorldModel.DEFAULT_PORTS();
       this.events = WorldModel.DEFAULT_EVENTS();
     }
@@ -76,6 +83,10 @@ goog.scope(function() {
       }
 
       this.events.push(event);
+    }
+
+    static DEFAULT_RESOURCES_PER_CAPITA() {
+      return {};
     }
 
     static DEFAULT_RESOURCES() {

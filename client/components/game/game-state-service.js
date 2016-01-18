@@ -34,6 +34,7 @@ goog.scope(function() {
       for (let key of Object.keys(this.world.ports)) {
         let port = this.world.ports[key];
 
+        this.calculatePort(port);
         this.processPort(port);
       }
     }
@@ -66,8 +67,20 @@ goog.scope(function() {
     calculatePort(port) {
       const FOOD_PER_POP = 0.2;
 
-      // Food demand is based on population.
-      port.resources['food'].demand = Math.floor(port.population * FOOD_PER_POP);
+      // Reset supply and demand to zero; they are recalculated each turn.
+      for (let resourceName of Object.keys(port.resources)) {
+        let resource = port.resources[resourceName];
+        resource.supply = 0;
+        resource.demand = 0;
+      }
+
+      // Consume per-capita resources.
+      for (let resourceName of Object.keys(this.world.resourcesPerCapita)) {
+        let consumptionRate = this.world.resourcesPerCapita[resourceName];
+        let demand = port.population * consumptionRate;
+
+        port.resources[resourceName].demand += demand;
+      }
 
       // Apply building effects.
       for (let building of port.buildings) {
@@ -86,10 +99,8 @@ goog.scope(function() {
       for (let key of Object.keys(port.resources)) {
         let resource = port.resources[key];
 
-        resource.stocks += (resource.supply - resource.demand);
+        resource.stock += (resource.supply - resource.demand);
       }
-
-      this.calculatePort(port);
     }
 
     initializeWorld() {
@@ -103,6 +114,8 @@ goog.scope(function() {
       this.addPort('San Dominica');
       this.addPort('Kirrel Station');
       this.addPort('Ringworld');
+
+      this.world.resourcesPerCapita.food = 1;
     }
 
     addPort(name) {
