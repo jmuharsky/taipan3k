@@ -1,0 +1,21 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+.tp3k-page-header {
+  border-bottom: 1px solid grey;
+}
+
+.tp3k-page-header-title {
+  font-weight: bold;
+  font-size: 1.6em;
+}
+
+.tp3k-page-header-section {
+  padding: 4px;
+}
+
+.tp3k-page-body {
+  overflow: auto;
+}

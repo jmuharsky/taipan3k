@@ -1,3 +1,13 @@
-<div>
-  <port ng-model="port" ng-repeat="(name, port) in gameStateSvc.world.ports"></port>
+<div layout="column" flex>
+  <div class="tp3k-page-header" layout="row">
+    <div class="tp3k-page-header-section tp3k-page-header-title" flex>
+      Taipan 3k - A Trading Simulation</div>
+    <div class="tp3k-page-header-section">
+      <div class="tp3k-field-value">{{ gameStateSvc.state.selectedPort.name || 'none' }}</div>
+      <div class="tp3k-field-label">ACTIVE PORT</div>
+    </div>
+  </div>
+  <div class="tp3k-page-body" flex>
+    <port ng-model="port" ng-repeat="(name, port) in gameStateSvc.world.ports"></port>
+  </div>
 </div>
