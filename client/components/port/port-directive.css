@@ -1,6 +1,32 @@
 .tp3k-port-directive-canvas {
-  width: 240px;
+  width: 300px;
   padding: 8px;
   border-radius: 2px;
   border: 1px solid grey;
+}
+
+.tp3k-port-directive-section {
+  padding-bottom: 8px;
+  border-bottom: 1px dotted grey;
+}
+
+.tp3k-port-directive-section-header {
+}
+
+.tp3k-port-directive-section-title {
+  padding-top: 4px;
+  font-size: .8em;
+}
+
+.tp3k-port-directive-table {
+  width: 100%;
+  border: 0;
+}
+
+.tp3k-cell-numeric {
+  text-align: right;
+}
+
+.tp3k-field-label {
+  font-size: .8em;
 }

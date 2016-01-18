@@ -1,41 +1,58 @@
 <div class="tp3k-port-directive-canvas" layout="column">
-  <div class="tp3k-port-directive-header" layout="row">
+  <div class="tp3k-port-directive-header tp3k-port-directive-section" layout="row">
     <div class="tp3k-port-directive-header-text" flex>
-      {{ ngModel.name }}
+      <div class="tp3k-field-value">{{ ngModel.name }}</div>
+      <div class="tp3k-field-label">NAME</div>
     </div>
     <div class="tp3k-port-directive-header-population">
-      {{ ngModel.population }}
+      <div class="tp3k-field-value tp3k-cell-numeric">{{ ngModel.population }}</div>
+      <div class="tp3k-field-label tp3k-cell-numeric">POP</div>
     </div>
     <div class="tp3k-port-directive-header-morale">
-      {{ ngModel.morale }}
+      <div class="tp3k-field-value tp3k-cell-numeric">{{ ngModel.morale }}</div>
+      <div class="tp3k-field-label tp3k-cell-numeric">&nbsp;&nbsp;MOR</div>
     </div>
   </div>
-  <div class="tp3k-port-directive-resources">
-    <table>
-      <tr>
-        <th>&nbsp;</th>
-        <th>stock</th>
-        <th>supply</th>
-        <th>demand</th>
-      </tr>
-      <tr ng-repeat="resource in ngModel.resources">
-        <td>{{ resource.template.name }}</td>
-        <td>{{ resource.stock }}</td>
-        <td>{{ resource.supply }}</td>
-        <td>{{ resource.demand }}</td>
-      </tr>
-    </table>
+  <div class="tp3k-port-directive-resources tp3k-port-directive-section" layout="column">
+    <div class="tp3k-port-directive-section-header">
+      <div class="tp3k-port-directive-section-title">
+        RESOURCES
+      </div>
+    </div>
+    <div flex>
+      <table class="tp3k-port-directive-table">
+        <tr>
+          <th>&nbsp;</th>
+          <th class="tp3k-cell-numeric">stock</th>
+          <th class="tp3k-cell-numeric">supply</th>
+          <th class="tp3k-cell-numeric">demand</th>
+        </tr>
+        <tr ng-repeat="resource in ngModel.resources">
+          <td>{{ resource.template.name }}</td>
+          <td class="tp3k-cell-numeric">{{ resource.stock }}</td>
+          <td class="tp3k-cell-numeric">{{ resource.supply }}</td>
+          <td class="tp3k-cell-numeric">{{ resource.demand }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
-  <div class="tp3k-port-directive-events" flex>
-    <table>
-      <tr>
-        <th>&nbsp;</th>
-        <th>turns left</th>
-      </tr>
-      <tr ng-repeat="event in gameStateSvc.world.events">
-        <td>{{ event.name }}</td>
-        <td>{{ event.duration }} / {{ event.template.baseDuration }}</td>
-      </tr>
-    </table>
+  <div class="tp3k-port-directive-events tp3k-port-directive-section" flex layout="column">
+    <div class="tp3k-port-directive-section-header">
+      <div class="tp3k-port-directive-section-title">
+        EVENTS
+      </div>
+    </div>
+    <div flex>
+      <table class="tp3k-port-directive-table">
+        <tr>
+          <th>&nbsp;</th>
+          <th class="tp3k-cell-numeric">turns left</th>
+        </tr>
+        <tr ng-repeat="event in gameStateSvc.world.events">
+          <td>{{ event.name }}</td>
+          <td class="tp3k-cell-numeric">{{ event.duration }} / {{ event.template.baseDuration }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>
