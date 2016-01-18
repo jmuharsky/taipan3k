@@ -21,7 +21,7 @@ builtins:
 handlers:
 
 # Upload static scripts and HTML templates
-- url: /
+- url: /client
   static_dir: client
   login: required
 

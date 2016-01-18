@@ -103,7 +103,8 @@ goog.scope(function() {
         for (let effect of providedEvent.template.effects) {
           for (let portName of Object.keys(gameStateService.world.ports)) {
             let port = gameStateService.world.ports[portName];
-            expect(DictUtil.adjustProperty).toHaveBeenCalledWith(port, effect.targetAttribute, effect.value);
+            expect(DictUtil.adjustProperty).toHaveBeenCalledWith(
+                port, effect.targetAttribute, effect.value, effect.scale);
           }
         }
       });

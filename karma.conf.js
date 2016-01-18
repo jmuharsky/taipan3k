@@ -6,8 +6,12 @@ module.exports = function(config) {
     reporters: ['nested', 'html'],
     files: [
       'bower_components/angular/angular.js',
+      'bower_components/angular-aria/angular-aria.js',
+      'bower_components/angular-animate/angular-animate.js',
+      'bower_components/angular-material/angular-material.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // Compiled Product Code
+      'build/client/taipan3k_templates.js',
       'build/client/taipan3k_scripts.js',
       {pattern: 'client/**/*_test.js'},
       // Uncompiled Product Code

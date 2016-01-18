@@ -1,0 +1,41 @@
+<div class="tp3k-port-directive-canvas" layout="column">
+  <div class="tp3k-port-directive-header" layout="row">
+    <div class="tp3k-port-directive-header-text" flex>
+      {{ ngModel.name }}
+    </div>
+    <div class="tp3k-port-directive-header-population">
+      {{ ngModel.population }}
+    </div>
+    <div class="tp3k-port-directive-header-morale">
+      {{ ngModel.morale }}
+    </div>
+  </div>
+  <div class="tp3k-port-directive-resources">
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>stock</th>
+        <th>supply</th>
+        <th>demand</th>
+      </tr>
+      <tr ng-repeat="resource in ngModel.resources">
+        <td>{{ resource.template.name }}</td>
+        <td>{{ resource.stock }}</td>
+        <td>{{ resource.supply }}</td>
+        <td>{{ resource.demand }}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="tp3k-port-directive-events" flex>
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>turns left</th>
+      </tr>
+      <tr ng-repeat="event in gameStateSvc.world.events">
+        <td>{{ event.name }}</td>
+        <td>{{ event.duration }} / {{ event.template.baseDuration }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

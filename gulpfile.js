@@ -21,15 +21,23 @@ var jsSourceFiles = [
 
 gulp.task('default', ['prod']);
 
-gulp.task('third_party', function() {});
+gulp.task('third_party', function() {
+  // Third party libraries are loaded from CDN.
+});
 
 gulp.task('common', ['third_party'], function() {
+  gulp.src(['*.yaml', '*.py'])
+    .pipe(gulp.dest('build'));
+
+  gulp.src('client/home.html')
+    .pipe(gulp.dest('build/client'));
+
   gulp.src('client/**/*.json')
     .pipe(gulp.dest('build/client'));
 
   gulp.src('client/**/*.css')
-    .pipe(concat('perfkit_styles.css'))
-    .pipe(gulp.dest('build'));
+    .pipe(concat('taipan3k_styles.css'))
+    .pipe(gulp.dest('build/client'));
 });
 
 gulp.task('test', ['common'], function() {
@@ -45,6 +53,11 @@ gulp.task('test', ['common'], function() {
         language_out: 'ECMASCRIPT5',
         formatting: 'PRETTY_PRINT',
         warning_level: 'VERBOSE',
+        externs: [
+          'node_modules/google-closure-compiler/contrib/externs/angular-1.4.js',
+          'node_modules/google-closure-compiler/contrib/externs/angular-1.4-http-promise_templated.js',
+          'node_modules/google-closure-compiler/contrib/externs/angular-1.4-q_templated.js'
+        ],
         manage_closure_dependencies: true,
         only_closure_dependencies: true,
         process_closure_primitives: true,
@@ -96,7 +109,8 @@ gulp.task('prod', ['common'], function() {
         quotes: true
     }))
     .pipe(ngHtml2Js({
-        moduleName: 'taipan3k.templates'
+        moduleName: 'taipan3k.templates',
+        prefix: '/client/'
     }))
     .pipe(concat('taipan3k_templates.js'))
     .pipe(uglify())

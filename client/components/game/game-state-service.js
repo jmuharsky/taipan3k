@@ -51,7 +51,8 @@ goog.scope(function() {
               // Apply port-level world effects to all ports.
               for (let portName of Object.keys(this.world.ports)) {
                 let port = this.world.ports[portName];
-                DictUtil.adjustProperty(port, effect.targetAttribute, effect.value);
+                DictUtil.adjustProperty(
+                    port, effect.targetAttribute, effect.value, effect.scale);
               }
           }
         }
@@ -76,7 +77,7 @@ goog.scope(function() {
     applyEffect(effect, location) {
       let target = this.getEffectTarget(effect, location);
 
-      DictUtil.adjustProperty(target, effect.targetAttribute, effect.value);
+      DictUtil.adjustProperty(target, effect.targetAttribute, effect.value, effect.scale);
     }
 
     calculatePort(port) {
@@ -116,6 +117,11 @@ goog.scope(function() {
 
         resource.stock += (resource.supply - resource.demand);
       }
+    }
+
+    initialize() {
+      this.contentService.initializeRules();
+      this.initializeWorld();
     }
 
     initializeWorld() {
