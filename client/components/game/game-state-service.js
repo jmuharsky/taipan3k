@@ -117,6 +117,13 @@ goog.scope(function() {
       }
     }
 
+    calculatePorts() {
+      for (let portName of Object.keys(this.world.ports)) {
+        let port = this.world.ports[portName];
+        this.calculatePort(port);
+      }
+    }
+
     processPort(port) {
       // For each resource, decrease the stocks by demand, and increase by supply.
       for (let key of Object.keys(port.resources)) {
@@ -130,6 +137,8 @@ goog.scope(function() {
       this.contentService.initializeRules();
       this.initializeWorld();
       this.setInitialWorldState();
+
+      this.calculatePorts();
     }
 
     initializeWorld() {
