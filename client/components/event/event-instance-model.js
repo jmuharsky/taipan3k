@@ -1,20 +1,27 @@
 goog.provide('taipan3k.components.event.EventInstanceModel');
 
+goog.require('taipan3k.components.event.EventModel');
+
 
 goog.scope(function() {
+  const EventModel = taipan3k.components.event.EventModel;
+
   taipan3k.components.event.EventInstanceModel = class {
-    constructor(name, duration) {
+    /**
+     * Constructs a new instance of an event.
+     * @param {!EventModel} template
+     * @param {?string=} name
+     * @param {?number=} duration
+     */
+    constructor(template, name, duration) {
       const EventInstanceModel = taipan3k.components.event.EventInstanceModel;
 
-      this.name = name || EventInstanceModel.DEFAULT_NAME;
-      this.duration = duration || EventInstanceModel.DEFAULT_DURATION;
+      this.template = template;
+      this.name = name || template.name;
+      this.duration = duration || template.baseDuration;
     }
   }
   const EventInstanceModel = taipan3k.components.event.EventInstanceModel;
 
-  EventInstanceModel.fromJSON = function(obj) {
-    return new EventInstanceModel(obj.name, obj.duration);
-  }
-  EventInstanceModel.DEFAULT_NAME = '';
   EventInstanceModel.DEFAULT_DURATION = 0;
 });
