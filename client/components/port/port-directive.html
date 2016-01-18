@@ -1,4 +1,4 @@
-<div class="tp3k-port-directive-canvas" layout="column"
+<div class="tp3k-port-directive-canvas"
     ng-click="gameStateSvc.selectPort(ngModel)"
     ng-class="{'selected': gameStateSvc.state.selectedPort == ngModel}">
   <div class="tp3k-port-directive-header tp3k-port-directive-section" layout="row">
@@ -38,7 +38,7 @@
       </table>
     </div>
   </div>
-  <div class="tp3k-port-directive-events tp3k-port-directive-section" flex layout="column"
+  <div class="tp3k-port-directive-events tp3k-port-directive-section"
       ng-show="gameStateSvc.state.selectedPort === ngModel">
     <div class="tp3k-port-directive-section-header">
       <div class="tp3k-port-directive-section-title">
@@ -54,6 +54,24 @@
         <tr ng-repeat="event in gameStateSvc.world.events">
           <td>{{ event.name }}</td>
           <td class="tp3k-cell-numeric">{{ event.duration }} / {{ event.template.baseDuration }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="tp3k-port-directive-buildings tp3k-port-directive-section"
+      ng-show="gameStateSvc.state.selectedPort === ngModel">
+    <div class="tp3k-port-directive-section-header">
+      <div class="tp3k-port-directive-section-title">
+        BUILDINGS
+      </div>
+    </div>
+    <div flex>
+      <table class="tp3k-port-directive-table">
+        <tr>
+          <th>&nbsp;</th>
+        </tr>
+        <tr ng-repeat="building in ngModel.buildings">
+          <td>{{ building.name }}</td>
         </tr>
       </table>
     </div>
