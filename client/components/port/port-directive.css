@@ -10,6 +10,18 @@
   background-color: #efefef;
 }
 
+.tp3k-port-directive-header-section:not(:first-child) {
+  padding-left: 8px;
+}
+
+.tp3k-port-directive-header-section:not(:last-child) {
+  padding-right: 8px;
+}
+
+.tp3k-port-directive-section {
+  padding-bottom: 8px;
+}
+
 .tp3k-port-directive-section {
   padding-bottom: 8px;
 }

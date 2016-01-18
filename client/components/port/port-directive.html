@@ -2,17 +2,16 @@
     ng-click="gameStateSvc.selectPort(ngModel)"
     ng-class="{'selected': gameStateSvc.state.selectedPort == ngModel}">
   <div class="tp3k-port-directive-header tp3k-port-directive-section" layout="row">
-    <div class="tp3k-port-directive-header-text" flex>
+    <div class="tp3k-port-directive-header-section text" flex>
       <div class="tp3k-field-value">{{ ngModel.name }}</div>
-      <div class="tp3k-field-label">NAME</div>
     </div>
-    <div class="tp3k-port-directive-header-population">
-      <div class="tp3k-field-value tp3k-cell-numeric">{{ ngModel.population }}</div>
-      <div class="tp3k-field-label tp3k-cell-numeric">POP</div>
+    <div class="tp3k-port-directive-header-section population">
+      <div class="tp3k-field-value tp3k-cell-numeric">
+        <i class="fa fa-users"></i> {{ ngModel.population }}</div>
     </div>
-    <div class="tp3k-port-directive-header-morale">
-      <div class="tp3k-field-value tp3k-cell-numeric">{{ ngModel.morale }}</div>
-      <div class="tp3k-field-label tp3k-cell-numeric">&nbsp;&nbsp;MOR</div>
+    <div class="tp3k-port-directive-header-section morale">
+      <div class="tp3k-field-value tp3k-cell-numeric">
+        <i class="fa fa-meh-o"></i> {{ ngModel.morale }}</div>
     </div>
   </div>
   <div class="tp3k-port-directive-resources tp3k-port-directive-section" layout="column"
