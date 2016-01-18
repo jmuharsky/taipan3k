@@ -2,6 +2,8 @@ goog.require('taipan3k.components.building.BuildingModel');
 goog.require('taipan3k.components.dice.DiceService');
 goog.require('taipan3k.components.entity.EntityTypes');
 goog.provide('taipan3k.components.game.GameStateService');
+
+goog.require('taipan3k.components.game.GameStateModel');
 goog.require('taipan3k.components.port.PortModel');
 goog.require('taipan3k.components.port.PortBuildingModel');
 goog.require('taipan3k.components.port.PortResourceModel');
@@ -12,6 +14,7 @@ goog.require('taipan3k.util.DictUtil');
 goog.scope(function() {
   const BuildingModel = taipan3k.components.building.BuildingModel;
   const EntityTypes = taipan3k.components.entity.EntityTypes;
+  const GameStateModel = taipan3k.components.game.GameStateModel;
   const PortModel = taipan3k.components.port.PortModel;
   const PortBuildingModel = taipan3k.components.port.PortBuildingModel;
   const PortResourceModel = taipan3k.components.port.PortResourceModel;
@@ -25,7 +28,11 @@ goog.scope(function() {
 
       this.contentService = contentService;
 
-      this.world = GameStateService.DEFAULT_WORLD;
+      /** @export {!WorldModel} */
+      this.world = new WorldModel();;
+
+      /** @export {!GameStateModel} */
+      this.state = new GameStateModel();
     }
 
     nextTurn() {
@@ -122,6 +129,7 @@ goog.scope(function() {
     initialize() {
       this.contentService.initializeRules();
       this.initializeWorld();
+      this.setInitialWorldState();
     }
 
     initializeWorld() {
@@ -131,7 +139,9 @@ goog.scope(function() {
         let blueprint = this.contentService.resources[key];
         this.world.addResource(angular.copy(blueprint));
       }
+    }
 
+    setInitialWorldState() {
       this.addPort('San Dominica');
       this.addPort('Kirrel Station');
       this.addPort('Ringworld');
@@ -168,6 +178,4 @@ goog.scope(function() {
     }
   }
   const GameStateService = taipan3k.components.game.GameStateService;
-
-  GameStateService.DEFAULT_WORLD = new WorldModel();
 });

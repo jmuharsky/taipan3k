@@ -15,7 +15,6 @@ goog.scope(function() {
         scope.gameStateSvc = gameStateService;
       },
       controller: () => {
-        console.log('gameState Starting');
         gameStateService.initialize();
       }
     }

@@ -3,6 +3,7 @@ goog.require('taipan3k.components.content.ContentService');
 goog.require('taipan3k.components.event.EventInstanceModel');
 goog.require('taipan3k.components.game.GameStateService');
 goog.require('taipan3k.components.port.PortBuildingModel');
+goog.require('taipan3k.components.world.WorldModel');
 goog.require('taipan3k.util.DictUtil');
 
 
@@ -11,10 +12,12 @@ goog.scope(function() {
   const EventInstanceModel = taipan3k.components.event.EventInstanceModel;
   const GameStateService = taipan3k.components.game.GameStateService;
   const PortBuildingModel = taipan3k.components.port.PortBuildingModel;
+  const WorldModel = taipan3k.components.world.WorldModel;
   const DictUtil = taipan3k.util.DictUtil;
 
   describe('GameStateService', function() {
     let gameStateService, contentService;
+    const PROVIDED_PORT_NAME = 'PROVIDED';
 
     beforeEach(module('taipan3k'));
 
@@ -25,7 +28,7 @@ goog.scope(function() {
 
     describe('should initialize the default', function() {
       it('world', function() {
-        expect(gameStateService.world).toEqual(GameStateService.DEFAULT_WORLD);
+        expect(gameStateService.world).toEqual(new WorldModel());
       });
     });
 
@@ -45,6 +48,8 @@ goog.scope(function() {
 
         contentService.initializeRules();
         gameStateService.initializeWorld();
+
+        gameStateService.addPort(PROVIDED_PORT_NAME);
       });
 
       it('should reset the turn counter', function() {
@@ -59,7 +64,8 @@ goog.scope(function() {
         contentService.initializeRules();
         gameStateService.initializeWorld();
 
-        actualPort = gameStateService.world.ports['San Dominica'];
+        gameStateService.addPort(PROVIDED_PORT_NAME);
+        actualPort = gameStateService.world.ports[PROVIDED_PORT_NAME];
       });
 
       it('should add a building by name to the specified port', function() {
@@ -92,6 +98,9 @@ goog.scope(function() {
         gameStateService.initializeWorld();
         providedEvent = new EventInstanceModel(contentService.events['flood']);
         actualPorts = gameStateService.world.ports;
+
+        gameStateService.addPort(PROVIDED_PORT_NAME);
+        gameStateService.addPort('Port2');
       });
 
       it('should apply effects to each port', function() {
@@ -117,7 +126,8 @@ goog.scope(function() {
         contentService.initializeRules();
         gameStateService.initializeWorld();
 
-        actualPort = gameStateService.world.ports['San Dominica'];
+        gameStateService.addPort(PROVIDED_PORT_NAME);
+        actualPort = gameStateService.world.ports[PROVIDED_PORT_NAME];
       });
 
       describe('should set resource demand', function() {

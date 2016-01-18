@@ -11,6 +11,7 @@ goog.scope(function() {
 
   describe('Game', function() {
     let contentService, diceService, gameStateService, world;
+    const PROVIDED_PORT_NAMES = ['PROVIDED 0', 'PROVIDED 1', 'PROVIDED 2'];
 
     beforeEach(module('taipan3k'));
 
@@ -22,6 +23,9 @@ goog.scope(function() {
 
       contentService.initializeRules();
       gameStateService.initializeWorld();
+      for (let portName of PROVIDED_PORT_NAMES) {
+        gameStateService.addPort(portName);
+      }
     }));
 
     it('should start with ports and resources', function() {
@@ -32,7 +36,7 @@ goog.scope(function() {
       // Take a turn with best-case rolls.
       diceService.loadDice(DiceService.ROLL_BEST);
 
-      let actualPort = world.ports['San Dominica'];
+      let actualPort = world.ports[PROVIDED_PORT_NAMES[0]];
       actualPort.population = 100;
       actualPort.morale = 50;
       gameStateService.world.resourcesPerCapita['food'] = .2;
