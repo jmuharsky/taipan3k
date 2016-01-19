@@ -62,6 +62,14 @@ goog.scope(function() {
       this.buildings.push(building);
     }
 
+    addEvent(event) {
+      if (goog.string.isEmptySafe(event.name)) {
+        throw new Error('addEvent failed: event.name is required');
+      }
+
+      this.events.push(event);
+    }
+
     static DEFAULT_RESOURCES() {
       return {};
     }

@@ -61,6 +61,10 @@
           <td>{{ event.name }}</td>
           <td class="tp3k-cell-numeric">{{ event.duration }} / {{ event.template.baseDuration }}</td>
         </tr>
+        <tr ng-repeat="event in ngModel.events">
+          <td>{{ event.name }}</td>
+          <td class="tp3k-cell-numeric">{{ event.duration }} / {{ event.template.baseDuration }}</td>
+        </tr>
       </table>
     </div>
   </div>

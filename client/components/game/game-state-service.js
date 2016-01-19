@@ -1,8 +1,10 @@
+goog.provide('taipan3k.components.game.GameStateService');
+
 goog.require('taipan3k.components.building.BuildingModel');
 goog.require('taipan3k.components.dice.DiceService');
 goog.require('taipan3k.components.entity.EntityTypes');
-goog.provide('taipan3k.components.game.GameStateService');
-
+goog.require('taipan3k.components.event.EventInstanceModel');
+goog.require('taipan3k.components.event.EventModel');
 goog.require('taipan3k.components.game.GameStateModel');
 goog.require('taipan3k.components.port.PortModel');
 goog.require('taipan3k.components.port.PortBuildingModel');
@@ -14,6 +16,8 @@ goog.require('taipan3k.util.DictUtil');
 goog.scope(function() {
   const BuildingModel = taipan3k.components.building.BuildingModel;
   const EntityTypes = taipan3k.components.entity.EntityTypes;
+  const EventModel = taipan3k.components.event.EventModel;
+  const EventInstanceModel = taipan3k.components.event.EventInstanceModel;
   const GameStateModel = taipan3k.components.game.GameStateModel;
   const PortModel = taipan3k.components.port.PortModel;
   const PortBuildingModel = taipan3k.components.port.PortBuildingModel;
@@ -88,8 +92,6 @@ goog.scope(function() {
     }
 
     calculatePort(port) {
-      const FOOD_PER_POP = 0.2;
-
       // Reset supply and demand to zero; they are recalculated each turn.
       for (let resourceName of Object.keys(port.resources)) {
         let resource = port.resources[resourceName];
@@ -160,6 +162,9 @@ goog.scope(function() {
       this.addBuilding(port, 'farm');
       this.addBuilding(port, 'farm');
       this.addBuilding(port, 'granary');
+      this.addBuilding(port, 'foundry');
+
+      this.addEvent(port, 'famine');
 
       this.addPort('Kirrel Station');
       this.addPort('Ringworld');
@@ -198,6 +203,21 @@ goog.scope(function() {
       }
 
       port.addBuilding(result);
+    }
+
+    addEvent(port, event) {
+      let result = null;
+
+      if (goog.isString(event)) {
+        let blueprint = this.contentService.events[event];
+        result = new EventInstanceModel(blueprint);
+      } else if (Object.is(event, EventModel)) {
+        result = new EventInstanceModel(event);
+      } else {
+        throw new Error('Event must be a template name or instance');
+      }
+
+      port.addEvent(result);
     }
   }
   const GameStateService = taipan3k.components.game.GameStateService;

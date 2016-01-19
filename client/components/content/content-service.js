@@ -166,9 +166,9 @@ goog.scope(function() {
         {name: 'rennaissance',
          baseDuration: 8,
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'morale', value: 10},
+           {targetType: EntityTypes.PORT, targetAttribute: 'morale', value: 3},
            {targetType: EntityTypes.PORT, targetAttribute: 'population', value: 2, scale: '%'},
-           {targetType: EntityTypes.PORT, targetAttribute: 'food', value: -10, scale: '%'}
+           {targetType: EntityTypes.PORT, targetAttribute: 'resources.food.supply', value: -10, scale: '%'}
          ]}
       ));
 
@@ -176,7 +176,8 @@ goog.scope(function() {
         {name: 'inquisition',
          baseDuration: 8,
          effects: [
-           {targetType: EntityTypes.PORT, targetAttribute: 'morale', value: -50, scale: '%'}
+           {targetType: EntityTypes.PORT, targetAttribute: 'population', value: -5},
+           {targetType: EntityTypes.PORT, targetAttribute: 'morale', value: -25, scale: '%'}
          ]}
       ));
     }
