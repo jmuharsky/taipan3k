@@ -10,10 +10,12 @@ goog.require('taipan3k.components.port.PortModel');
 goog.require('taipan3k.components.port.PortBuildingModel');
 goog.require('taipan3k.components.port.PortResourceModel');
 goog.require('taipan3k.components.world.WorldModel');
+goog.require('taipan3k.util.AdjustmentResolutions');
 goog.require('taipan3k.util.DictUtil');
 
 
 goog.scope(function() {
+  const AdjustmentResolutions = taipan3k.util.AdjustmentResolutions;
   const BuildingModel = taipan3k.components.building.BuildingModel;
   const EntityTypes = taipan3k.components.entity.EntityTypes;
   const EventModel = taipan3k.components.event.EventModel;
@@ -48,7 +50,10 @@ goog.scope(function() {
         this.applyWorldEvents();
         this.calculatePort(port);
         this.processPort(port);
+        this.cleanupEvents(port);
       }
+
+      this.applyWorldEvents();
     }
 
     applyWorldEvents() {
@@ -85,10 +90,27 @@ goog.scope(function() {
       return target;
     }
 
+    applyEvents(events, location) {
+      for (let event of events) {
+        for (let effect of event.template.effects) {
+          this.applyEffect(effect, location);
+        }
+      }
+    }
+
+    cleanupEvents(location) {
+      for (let event of location.events) {
+        if (--event.duration === 0) {
+          location.removeEvent(event);
+        }
+      }
+    }
+
     applyEffect(effect, location) {
       let target = this.getEffectTarget(effect, location);
 
-      DictUtil.adjustProperty(target, effect.targetAttribute, effect.value, effect.scale);
+      DictUtil.adjustProperty(
+          target, effect.targetAttribute, effect.value, effect.scale, AdjustmentResolutions.FLOOR);
     }
 
     calculatePort(port) {
@@ -97,14 +119,6 @@ goog.scope(function() {
         let resource = port.resources[resourceName];
         resource.supply = 0;
         resource.demand = 0;
-      }
-
-      // Consume per-capita resources.
-      for (let resourceName of Object.keys(this.world.resourcesPerCapita)) {
-        let consumptionRate = this.world.resourcesPerCapita[resourceName];
-        let demand = port.population * consumptionRate;
-
-        port.resources[resourceName].demand += demand;
       }
 
       // Apply building effects.
@@ -117,6 +131,18 @@ goog.scope(function() {
           this.applyEffect(effect, port);
         }
       }
+
+      // Apply port effects.
+      this.applyEvents(port.events, port);
+
+      // Consume per-capita resources.
+      for (let resourceName of Object.keys(this.world.resourcesPerCapita)) {
+        let consumptionRate = this.world.resourcesPerCapita[resourceName];
+        let demand = port.population * consumptionRate;
+
+        port.resources[resourceName].demand += demand;
+      }
+
     }
 
     calculatePorts() {
@@ -156,20 +182,21 @@ goog.scope(function() {
       let port;
 
       port = this.addPort('San Dominica');
-      port.resources['food'].stock = 1200;
+      port.resources['food'].stock = 300;
       port.resources['tool'].stock = 20;
 
-      this.addBuilding(port, 'farm');
       this.addBuilding(port, 'farm');
       this.addBuilding(port, 'granary');
       this.addBuilding(port, 'foundry');
 
       this.addEvent(port, 'famine');
 
-      this.addPort('Kirrel Station');
+      port = this.addPort('Kirrel Station');
+      port.population = 50;
+      port.resources['food'].stock =
       this.addPort('Ringworld');
 
-      this.world.resourcesPerCapita.food = 1;
+      this.world.resourcesPerCapita.food = .5;
     }
 
     addPort(name) {

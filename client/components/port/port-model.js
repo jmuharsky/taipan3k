@@ -70,6 +70,15 @@ goog.scope(function() {
       this.events.push(event);
     }
 
+    removeEvent(event) {
+      let eventIndex = this.events.indexOf(event);
+      if (eventIndex === -1) {
+        throw new Error('Event ' + event.name + ' cannot be found in port ' + this.name + '.');
+      }
+
+      this.events.splice(eventIndex, 1);
+    }
+
     static DEFAULT_RESOURCES() {
       return {};
     }

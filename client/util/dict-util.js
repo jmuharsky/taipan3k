@@ -1,10 +1,20 @@
 goog.provide('taipan3k.util.DictUtil');
+goog.provide('taipan3k.util.AdjustmentResolutions');
 goog.provide('taipan3k.util.AdjustmentScales');
 
 goog.require('goog.string');
 
 
 goog.scope(function() {
+  /**
+   * @enum {string}
+   */
+  taipan3k.util.AdjustmentResolutions = {
+    FLOAT: 'float',
+    FLOOR: 'floor'
+  }
+  const AdjustmentResolutions = taipan3k.util.AdjustmentResolutions;
+
   /**
    * @enum {string}
    */
@@ -70,14 +80,24 @@ goog.scope(function() {
      *    .PERCENTAGE: '%'      The target property's value is modified by the value's percentage.
      *                              For example {..., value: -10, scale: '%'} would reduce the
      *                              current property by 10%.
+     * @param {AdjustmentResolutions=} opt_resolution Sets how the value is rounded.  This
+     *    primarily affects PERCENTAGE scales.  Supported values are:
+     *    .FLOAT    'float'   The actual amount is returned.
+     *    .FLOOR    'floor'   The deminals are truncated, and the integer portion is returned.
      */
-    static adjustProperty(obj, path, value, opt_scale=AdjustmentScales.FIXED) {
+    static adjustProperty(obj, path, value, opt_scale=AdjustmentScales.FIXED,
+        opt_resolution=AdjustmentResolutions.FLOAT) {
       const DictUtil = taipan3k.util.DictUtil;
       let scale = /** @type {!AdjustmentScales} */ (opt_scale);
 
       DictUtil.resolveProperty(obj, path, (context, propertyName) => {
         let existingValue = context[propertyName];
         let newValue = DictUtil.getScaledValue(existingValue, value, scale);
+
+        if (opt_resolution === AdjustmentResolutions.FLOOR) {
+          newValue = Math.floor(newValue);
+        }
+
         context[propertyName] = newValue;
       });
     }
@@ -93,7 +113,7 @@ goog.scope(function() {
         case AdjustmentScales.FIXED:
           return current + value;
         case AdjustmentScales.PERCENTAGE:
-          let adjustment = current * scale / 100;
+          let adjustment = current * value / 100;
           return current + adjustment;
       }
     }
